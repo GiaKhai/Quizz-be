@@ -1,0 +1,4 @@
+export const questionConstants = {
+    GET_QUESTION_SUCCESS: "GET_QUESTION_SUCCESS",
+    GET_QUESTION_FAIL: "GET_QUESTION_FAIL",
+};
