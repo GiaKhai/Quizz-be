@@ -22,7 +22,17 @@ class Test extends Controller
         $list = TestList::all();
         return response()->json($list, 200);
     }
+    
+    public function postTestList(Request $request) 
+    {   
+        return TestList::create($request->all());
+    }
+    public function deleteTestItem($id) 
+    {   
+        return TestList::destroy($id);
+    }
 
+    
     public function postTestPlan(Request $request) 
     {
         Log::info($request);

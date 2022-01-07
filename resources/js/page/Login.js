@@ -11,7 +11,6 @@ const Login = () => {
     };
 
     const handleSubmit = async () => {
-        console.log("data");
         let cookie = document.cookie;
         console.log(cookie);
         try {

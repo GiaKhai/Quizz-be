@@ -1,7 +1,7 @@
 import axios from "axios";
 import { testListURL } from "../constants/backend_url";
 import { testListConstants } from "../constants/testList.contants";
-
+import { message as Message } from "antd";
 const getListSuccess = (data) => {
     return {
         type: testListConstants.GET_LIST_SUCCESS,
@@ -26,4 +26,16 @@ export const getListAction = () => {
             dispatch(getListFail());
         }
     };
+};
+
+export const postTestListAction = async (body) => {
+    try {
+        const result = await axios.post(testListURL, body);
+        if (result.status === 201) {
+            Message.success("Add success");
+            return { success: true };
+        }
+    } catch (error) {
+        return { success: false };
+    }
 };
