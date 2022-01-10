@@ -9,7 +9,6 @@ const ModalAddPlan = ({
     isModalVisible,
     testList,
 }) => {
-    console.log(testList);
     return (
         <div>
             <Modal
