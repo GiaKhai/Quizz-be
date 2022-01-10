@@ -77,6 +77,13 @@ function TestList({}) {
             width: 200,
         },
         {
+            title: "Mã bài kiểu tra",
+            dataIndex: "id",
+            key: "id",
+            align: "center",
+            width: 200,
+        },
+        {
             title: "Hành động",
             key: "action",
             render: (_, record) => {
