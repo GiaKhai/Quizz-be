@@ -35,7 +35,7 @@ class Test extends Controller
         $plan->status = $request->status;
         $plan->save();
     }
-    ///
+    
     public function updateInfoTestPlanExeptStatus(Request $request,$id) 
     {
         $plan = TestPlan::find($id);
