@@ -45,6 +45,7 @@ function TestList({}) {
             content:"Bạn muốn xóa",
             onOk() {
                 axios.delete( `${testListURL}/${id}`).then((res)=>{
+                    console.log("res:",res)
                      if (res.status === 200) {
                         Message.success("Xóa dữ liệu thành công");
                         dispatch(getListAction());
