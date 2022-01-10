@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { UserAddOutlined } from "@ant-design/icons";
-import { Button, Table, Switch, message as Message } from "antd";
+import { Button, Table, Switch, message as Message,Modal } from "antd";
 import { getPlanAction } from "../../actions/testPlan.action";
 import { testPlanURL } from "../../constants/backend_url";
 import AddPlan from "../../containers/AddPlan";
 import { useForm } from "antd/lib/form/Form";
-
+const { confirm } = Modal;
 function TestPlan({ planList, updateStatus }) {
     const [form] = useForm();
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -17,6 +17,23 @@ function TestPlan({ planList, updateStatus }) {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+    const handleDeleteData=(id)=>{
+        confirm({
+            content:"Bạn muốn xóa?",
+            onOk() {
+                axios.delete(`${testPlanURL}/${id}`).then((res)=>{
+                    if (res.status === 200) {
+                        Message.success("Xóa thành công");
+                        dispatch(getPlanAction());
+                    }
+                })
+            },
+            onCancel() {
+            },
+            okText:"Có",
+            cancelText:"Không"
+        })
+    }
     const columns = [
         {
             title: "STT",
@@ -84,6 +101,8 @@ function TestPlan({ planList, updateStatus }) {
                                 dispatch(getPlanAction());
                             }
                         }}
+                        // onClick={()=>handleDeleteData(record.id)}
+                        
                         danger
                     >
                         Xóa
