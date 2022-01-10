@@ -77,7 +77,7 @@ function TestList({}) {
             width: 200,
         },
         {
-            title: "Mã bài kiểu tra",
+            title: "Mã bài kiểm tra",
             dataIndex: "id",
             key: "id",
             align: "center",
