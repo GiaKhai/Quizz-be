@@ -1,22 +1,47 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { UserAddOutlined } from "@ant-design/icons";
 import { Button, Table, Switch, message as Message,Modal } from "antd";
 import { getPlanAction } from "../../actions/testPlan.action";
 import { testPlanURL } from "../../constants/backend_url";
 import AddPlan from "../../containers/AddPlan";
 import { useForm } from "antd/lib/form/Form";
+import { useDispatch, useSelector } from "react-redux";
+import EditPlan from "../../containers/EditPlan";
 const { confirm } = Modal;
 function TestPlan({ planList, updateStatus }) {
+    const dispatch = useDispatch();
+    const testPlan = useSelector((state) => state.planReducers.planList);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [isModalVisibleEdit, setIsModalVisibleEdit] = useState(false);
+    const [pageSize, setPageSize] = useState(10);
     const [form] = useForm();
     const [isModalVisible, setIsModalVisible] = useState(false);
-
+    const [dataEdit,setDataEdit]=useState({})
+    useEffect(() => {
+        dispatch(getPlanAction());
+    }, [dispatch]);
+    
+    //show modal add
     const showModal = () => {
         setIsModalVisible(true);
     };
-
+    //cancel modal add
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+    
+    //handle show modal Edit
+    const showModalEdit = (record) => {
+        setIsModalVisibleEdit(true);
+        setDataEdit(record)
+    };
+    //handle cancel modal Edit
+    const handleCancelEdit = () => {
+        setIsModalVisibleEdit(false);
+    };
+    
+
+    //handle delete data
     const handleDeleteData=(id)=>{
         confirm({
             content:"Bạn muốn xóa?",
@@ -41,6 +66,10 @@ function TestPlan({ planList, updateStatus }) {
             key: "id",
             align: "center",
             width: 120,
+            render: (index, record,stt) =>{
+                var index =pageSize*(currentPage-1) + (stt+1)
+                return <p>{index}</p>
+            }
         },
         {
             title: "Tiêu đề",
@@ -91,28 +120,30 @@ function TestPlan({ planList, updateStatus }) {
             key: "action",
             render: (_, record) => {
                 return (
-                    <Button
-                        onClick={async () => {
-                            const res = await axios.delete(
-                                `${testPlanURL}/${record.id}`
-                            );
-                            if (res.status === 200) {
-                                Message.success("Xóa thành công");
-                                dispatch(getPlanAction());
-                            }
-                        }}
-                        // onClick={()=>handleDeleteData(record.id)}
-                        
-                        danger
-                    >
+                    <div>
+                       <Button
+                            onClick={()=>handleDeleteData(record.id)}
+                            danger
+                        >
                         Xóa
-                    </Button>
+                        </Button>
+                        <Button
+                         onClick={()=>showModalEdit(record)}
+                        >
+                            Sửa
+                        </Button>
+                    </div>
+                   
                 );
             },
             width: 150,
             align: "center",
         },
     ];
+     //handle change when change pagination
+     function onChangePagination(currentPageData){
+        setCurrentPage(currentPageData.current)
+    }
     return (
         <div className="content-page">
             <div className="title">Kế hoạch kiểm tra</div>
@@ -133,8 +164,15 @@ function TestPlan({ planList, updateStatus }) {
                 handleCancel={handleCancel}
                 form={form}
             />
+            <EditPlan
+                setIsModalVisible={setIsModalVisibleEdit}
+                isModalVisible={isModalVisibleEdit}
+                handleCancel={handleCancelEdit}
+                form={form}
+                dataEdit={dataEdit}
+            />
 
-            <Table columns={columns} dataSource={planList} />
+            <Table columns={columns} dataSource={testPlan} onChange={(pagination, filters, sorter, currentPageData) =>onChangePagination(pagination)}/>
         </div>
     );
 }

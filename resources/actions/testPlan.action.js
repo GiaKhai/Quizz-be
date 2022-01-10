@@ -51,3 +51,16 @@ export const updateStatusAction = async (body, id) => {
         Message.error("Update status user false");
     }
 };
+
+export const updateTestPlan = async (body, id) => {
+    try {
+        const response = await axios.put(`${testPlanURL}/${id}`, body);
+        if (response.status === 200) {
+            Message.success("Update plan success");
+            return { success: true };
+        }
+    } catch (error) {
+        Message.error("Update plan false");
+        return { success: false };
+    }
+};
