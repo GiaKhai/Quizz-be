@@ -20,7 +20,8 @@ class Question extends Model
 
     public function getListQuestion() 
     {
-        $ques = Question::with('answers')->get();
+        $numberRandom=2;
+        $ques =  Question::inRandomOrder()->limit($numberRandom)->with('answers')->get();
         return $ques;
     }
 }

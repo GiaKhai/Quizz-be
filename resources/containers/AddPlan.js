@@ -8,7 +8,6 @@ import { getPlanAction, postPlanAction } from "../actions/testPlan.action";
 const AddUser = ({ isModalVisible, handleCancel, form, setIsModalVisible }) => {
     const dispatch = useDispatch();
     const testList = useSelector((state) => state.testListReducers.testList);
-
     useEffect(() => {
         dispatch(getListAction());
     }, [dispatch]);
@@ -26,7 +25,7 @@ const AddUser = ({ isModalVisible, handleCancel, form, setIsModalVisible }) => {
                 status,
             };
             const { success } = await postPlanAction(body);
-            if (success) {
+            if (success ) {
                 form.resetFields();
                 dispatch(getPlanAction());
                 setIsModalVisible(false);

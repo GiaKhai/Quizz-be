@@ -20,6 +20,7 @@ export const getQuestionAction = () => {
     return async (dispatch) => {
         try {
             const response = await axios.get(questionURL);
+            console.log("response:",response)
             if (response.status === 200) {
                 dispatch(getQuestionSuccess(response));
             }

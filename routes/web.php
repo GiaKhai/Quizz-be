@@ -19,3 +19,4 @@ use App\Http\Controllers\API\RenderSpaView;
 Route::get('{any}', function () {
     return view('app'); // or wherever your React app is bootstrapped.
 })->where('any', '.*');
+
