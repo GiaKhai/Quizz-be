@@ -54,4 +54,5 @@ Route::post('test-plan/{id}', [Test::class, 'updateTestPlan']);
 
 Route::get('test-list', [Test::class,'getTestList']);
 Route::post('test-list', [Test::class,'postTestList']);
+Route::put('test-list/{id}', [Test::class, 'updateTestItem']);
 Route::delete('test-list/{id}', [Test::class, 'deleteTestItem']);

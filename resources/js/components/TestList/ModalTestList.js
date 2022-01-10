@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Form, Input, Row, Col, Modal, Select, DatePicker } from "antd";
 const { Option } = Select;
 
@@ -26,7 +26,7 @@ const ModalAddTestList = ({
                     name="nest-messages"
                 >
                     <Row>
-                        <Col xs={{ span: 12 }}>
+                        <Col xs={{ span: 24 }}>
                             <Form.Item
                                 name="title"
                                 id="title"

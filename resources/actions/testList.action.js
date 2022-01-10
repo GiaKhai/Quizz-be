@@ -39,3 +39,15 @@ export const postTestListAction = async (body) => {
         return { success: false };
     }
 };
+
+export const updateTestListAction = async (id,body) => {
+    try {
+        const result = await axios.put(`${testListURL}/${id}`, body);
+        if (result.status === 200) {
+            Message.success("Update success");
+            return { success: true };
+        }
+    } catch (error) {
+        return { success: false };
+    }
+};

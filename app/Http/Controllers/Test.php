@@ -31,7 +31,16 @@ class Test extends Controller
     {   
         return TestList::destroy($id);
     }
-
+    public function updateTestItem(Request $request,$id) 
+    {   
+        $test = TestList::find($id);
+        $test->title = $request->title;
+        $test->save();
+        $list = TestList::all();
+        return response()->json($list, 200);
+        // return TestList::destroy($id);
+    }
+    
     
     public function postTestPlan(Request $request) 
     {
