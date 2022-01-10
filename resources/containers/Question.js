@@ -13,8 +13,6 @@ const QuestionContainer = () => {
         dispatch(getQuestionAction());
     }, [dispatch]);
 
-    // console.log(questionList);
-
     return <QuestionList questionList={questionList} />;
 };
 export default QuestionContainer;
