@@ -46,7 +46,7 @@ function TestList({}) {
             onOk() {
                 axios.delete( `${testListURL}/${id}`).then((res)=>{
                      if (res.status === 200) {
-                        Message.success("Xóa thành công");
+                        Message.success("Xóa dữ liệu thành công");
                         dispatch(getListAction());
                     }
                 })   
