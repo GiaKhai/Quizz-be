@@ -18,4 +18,5 @@ class TestList extends Model
     {
         return $this->hasMany(TestPlan::class);
     }
+    
 }
