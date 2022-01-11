@@ -66,9 +66,26 @@ class Test extends Controller
     }
     
 
-     public function destroy($id)
+    public function destroy($id)
     {
         return TestPlan::destroy($id);
     }
+    public function checkPlan(Request $request)
+    {
+        $plan = TestPlan::find($request->planTest_id);
+        $status=$plan['status'];
+        if($status === 1){
+            return response()->json([
+                'status' => true,
+            ]);
+        }else{
+            return response()->json([
+                'status' => false,
+            ]);
+        }
+        // return response()->json($status, 200);
+    }
+
+    
     
 }

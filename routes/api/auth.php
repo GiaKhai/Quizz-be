@@ -31,7 +31,10 @@ Route::group([
 
 ], function ($router) {
 //   Route::post('/login', 'API\AuthController@login');
-  Route::post('/login', [AuthController::class, 'login']); 
+  Route::post('/login', [AuthController::class, 'login']);
+  Route::post('/authenticate', [AuthController::class, 'getAuthUser']); 
+  Route::post('/logout', [AuthController::class, 'logout']); 
+  
   // Route::post('/register', 'API\AuthController@register');
 });
 
@@ -57,3 +60,5 @@ Route::get('test-list', [Test::class,'getTestList']);
 Route::post('test-list', [Test::class,'postTestList']);
 Route::put('test-list/{id}', [Test::class, 'updateTestItem']);
 Route::delete('test-list/{id}', [Test::class, 'deleteTestItem']);
+
+Route::post('check_plan', [Test::class,'checkPlan']);

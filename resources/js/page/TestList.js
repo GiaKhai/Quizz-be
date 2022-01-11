@@ -7,8 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getListAction } from "../../actions/testList.action";
 import { testListURL } from "../../constants/backend_url";
 import Edittestlist from "../../containers/EditTestList";
+import { MethodCommon } from '../../common/MethodCommon'
+import {INFO_USER,NO_PERMISSION} from '../../common/parameters'
+
 const { confirm } = Modal;
 function TestList({}) {
+    let data_user =MethodCommon.getLocalStorage(INFO_USER)
+    let user_role=data_user.role
+    
     const dispatch = useDispatch();
     const testList = useSelector((state) => state.testListReducers.testList);
     const [currentPage, setCurrentPage] = useState(1);
@@ -91,15 +97,6 @@ function TestList({}) {
                 return (
                     <div>
                         <Button
-                            // onClick={async () => {
-                            //     const res = await axios.delete(
-                            //         `${testListURL}/${record.id}`
-                            //     );
-                            //     if (res.status === 200) {
-                            //         Message.success("Xóa thành công");
-                            //         dispatch(getListAction());
-                            //     }
-                            // }}
                             onClick={()=>handleDeleteData(record.id)}
                             danger
                         >
@@ -123,6 +120,8 @@ function TestList({}) {
         setCurrentPage(currentPageData.current)
     }
     return (
+        <div>
+        {user_role === "Admin"? 
         <div className="content-page">
             <div className="title">Danh sách bài kiểm tra</div>
             <Button
@@ -150,6 +149,7 @@ function TestList({}) {
             />
             
             <Table  columns={columns} dataSource={testList}  onChange={(pagination, filters, sorter, currentPageData) =>onChange(pagination)}/>
+        </div>:`${NO_PERMISSION}`}
         </div>
     );
 }

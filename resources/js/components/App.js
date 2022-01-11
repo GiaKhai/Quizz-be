@@ -1,12 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import Routes from "../../router";
+// import Routes from "../../router";
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "../../reducers/index";
+import Routerurl from "../../router/RouterURL";
+
+
 
 const store = createStore(
     rootReducer,
@@ -21,8 +24,8 @@ const App = () => {
     return (
         <Provider store={store}>
             <Router>
-                <div>
-                    <Routes />
+                <div className="App">
+                    <Routerurl/>
                 </div>
             </Router>
         </Provider>

@@ -50,7 +50,6 @@ class UserController extends Controller
         $user->save();
         $list =User::all();
         return response()->json($list, 201);
-        // return User::create($request->all());
     }
 
     public function destroy($id)

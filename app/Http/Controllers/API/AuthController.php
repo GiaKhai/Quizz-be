@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Facades\JWTFactory;
+use Validator;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -24,18 +25,45 @@ class AuthController extends Controller
      */
 
      //Pending
+     public function getAuthUser(Request $request)
+    {
+        Log::info('XACTHUCXXX JWT');
+        Log::info($request);
+
+        // $user = JWTAuth::authenticate($request->token);
+        try {
+            $this->validate($request, [
+                'token' => 'required'
+            ]);
+          
+            $user = JWTAuth::authenticate('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTY0MTg5MjIzNywiZXhwIjoxNjQyMjUyMjM3LCJuYmYiOjE2NDE4OTIyMzcsImp0aSI6Ik5sSVF4UHFSMGQ5UWlJZU8iLCJzdWIiOjIyLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.eK8IMckMZL8gK8FPs9G6yyHV7aRy9990BpJPHi24NcY');
+
+            Log::info($user);
+            return response()->json(['user' => $user]);
+
+            
+        } 
+        catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+            return response()->json([
+                'message' => 'token het hạn',
+            ]);
+        } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Token Invalid',
+            ]);
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+            return response()->json([
+                'status' => 400,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
     public function login(LoginRequest $request)
     {
-    
-        $credentials = $request->only('email', 'password');
         $user = User::where('email', $request->email)->get()->first();
-        // Log::info("data user found");
-        // Log::info($user);
-        // $credentials['is_verified'] = 1;
         if ($user !==null) {
-
             if (Hash::check($request->password, $user['password'])) {  //if The passwords match
-                Log::info('TOKEN LOGIN');
                 $jwt_token = null;
                 $customClaims = [
                     'id'=> $user['id'],
@@ -52,9 +80,16 @@ class AuthController extends Controller
                         'message' => 'Invalid Email or Password',
                     ], 401);
                 }
+                $user_info =[
+                    'id'=> $user['id'],
+                    'name'=>$user['name'],
+                    'role'=>$user['role'], 
+                ];
                 return response()->json([
                     'login_success' => true,
                     'token' => $jwt_token,
+                    'user_info'=>$user_info,
+                    
                 ]);
             }else{
                 return response()->json(
@@ -62,39 +97,12 @@ class AuthController extends Controller
                       'password_not_correct' => true
                     ]);
             }
-            // $x = Hash::check($request->password, $user['password']);
-            // Log::info($user[$x]);
         }else{
             return response()->json(
                 [
                   'user_not_found' => true
                 ]);
         }
-      
-
-        // try {
-        //     // attempt to verify the credentials and create a token for the user
-        //     if (!$token = JWTAuth::attempt($credentials)) {
-        //         throw new NotFoundException('メールアドレスが違います。');
-        //     }
-        // } catch (JWTException $error) {
-        //     // something went wrong whilst attempting to encode the token
-        //     Log::error('Login: ' . $error->getMessage());
-        //     throw new InternalException('メールアドレス又はパスワードが違います。');
-        // }
-
-        /**
-         * @var Account
-         */
-        $jwt_account = JWTAuth::User();
-        
-        // all good so return the token
-        // return response()->json([
-        //     'success' => true, 'data' => [
-        //         'token' => $token,
-        //         // 'user' => $jwt_account->getResults()
-        //     ]
-        // ], Response::HTTP_OK);
     }
 
     /**
@@ -102,15 +110,35 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+    // public function logout(Request $request)
+    // {
+    //     try {
+    //         JWTAuth::invalidate(JWTAuth::getToken());
+    //         return response()->json(['success' => true]);
+    //     } catch (JWTException $error) {
+    //         // something went wrong whilst attempting to encode the token
+    //         Log::error('Logout: ' . $error->getMessage());
+    //         throw new InternalException('ログアウトに失敗しました。');
+    //     }
+    // }
     public function logout(Request $request)
     {
+        $this->validate($request, [
+            'token' => 'required'
+        ]);
+ 
         try {
-            JWTAuth::invalidate(JWTAuth::getToken());
-            return response()->json(['success' => true]);
-        } catch (JWTException $error) {
-            // something went wrong whilst attempting to encode the token
-            Log::error('Logout: ' . $error->getMessage());
-            throw new InternalException('ログアウトに失敗しました。');
+            JWTAuth::invalidate($request->token);
+ 
+            return response()->json([
+                'success' => true,
+                'message' => 'User logged out successfully'
+            ]);
+        } catch (JWTException $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, the user cannot be logged out'
+            ], 500);
         }
     }
 
