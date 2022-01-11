@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-
+use Illuminate\Support\Facades\Log;
 class  User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
@@ -19,7 +19,21 @@ class  User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'name', 'email', 'password', 'auth_token','is_verified','role'
     ];
-
+   
+    public function updateUser($request,$id)
+    {
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role = $request->role;
+        $user->save();
+        $list = User::all();
+        return response()->json($list, 200);
+    }
+    public function deleteUser($id)
+    {
+        return User::destroy($id);
+    }
     /**
      * The attributes that should be hidden for arrays.
      *
