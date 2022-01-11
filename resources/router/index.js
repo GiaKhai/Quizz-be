@@ -6,7 +6,8 @@ import Public from "./public";
 const Routes = () => {
     // const isLoggedIn = Boolean(getCookie("XSRF-TOKEN"));
     // return isLoggedIn ? <Authed /> : <Public />;
-    return <Authed />;
+    // return <Authed />;
+    return <Public />;
 };
 
 export default Routes;

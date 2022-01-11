@@ -37,7 +37,6 @@ class Test extends Controller
         $test->save();
         $list = TestList::all();
         return response()->json($list, 200);
-        // return TestList::destroy($id);
     }
     
     

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "antd/dist/antd.css";
 import { Form, Input, Button, Checkbox } from "antd";
 import { useForm } from "antd/lib/form/Form";
-
+import { message as Message } from "antd";
 const Login = () => {
     const [form] = useForm();
 
@@ -18,13 +18,26 @@ const Login = () => {
                 "http://127.0.0.1:8000/api/auth/login",
                 form.getFieldsValue()
             );
-            // console.log(response.data.success);
-            if (response.status === 200) {
-                console.log("Login ok");
-
-                // document.cookie = `token=${data.token};path=/;`;
-                // document.cookie = `refresh=${data.refresh};path=/;`;
+            let result = response.data
+            console.log("response:",response)
+            if(result.user_not_found !== undefined && result.user_not_found === true){
+                Message.warning("Người dùng không tồn tại");
             }
+            if(result.password_not_correct !== undefined && result.password_not_correct === true){
+                Message.warning("Mật khẩu không đúng");
+            }
+            if(result.login_success !== undefined && result.login_success === true){
+                Message.success("Đăng nhập thành công");
+            }
+
+            
+            // console.log(response.data.success);
+            // if (response.status === 200) {
+            //     console.log("Login ok");
+
+            //     // document.cookie = `token=${data.token};path=/;`;
+            //     // document.cookie = `refresh=${data.refresh};path=/;`;
+            // }
         } catch (error) {
             console.log("Login false");
         }
