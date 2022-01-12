@@ -15,6 +15,7 @@ import {
 } from 'react-router-dom'
 import LayoutCommon from '../js/components/LayoutCommon/LayoutCommon';
 import PrivateRoute from './PrivateRoute';
+import Usertest from '../js/page/UserTest/UserTest';
 
 
 const Routerurl = ({}) => {
@@ -52,6 +53,17 @@ const Routerurl = ({}) => {
                     <Route exact path="/test-list" >
                         <PrivateRoute>
                            <LayoutCommon component_ui={<TestList/>}/>
+                        </PrivateRoute>
+                    </Route>
+                    
+                    <Route exact path="/test-list" >
+                        <PrivateRoute>
+                           <LayoutCommon component_ui={<TestList/>}/>
+                        </PrivateRoute>
+                    </Route>
+                    <Route exact path="/do_test/:planTest_id" >
+                        <PrivateRoute>
+                             <Usertest/>
                         </PrivateRoute>
                     </Route>
                 </Switch>

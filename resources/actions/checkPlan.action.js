@@ -10,7 +10,7 @@ export const checkPlan = async (body, id) => {
         var result = response.data
         console.log(" response:", response)
         if (result.status === true) {
-            Message.success("Check plan success");
+            Message.success("Vào thi thành công");
             return { success: true };
         }else{
             Message.warning("Kế hoạch chưa được công khai");

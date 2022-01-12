@@ -16,7 +16,13 @@ class QuestionController extends Controller
         $list = $ques->getListQuestion();
         return response()->json($list, 200);
     }
-
+    public function loadingQuestionTest() 
+    {
+        $ques = new Question();
+        $list = $ques->getListQuestionRandom();
+        return response()->json($list, 200);
+    }
+    
 // public function getAnswer() 
 //     {
 //         $ques = Answer::all();

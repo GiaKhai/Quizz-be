@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TestPlan;
 use App\Models\TestList;
+use App\Models\Answer;
 use Illuminate\Support\Facades\Log;
 
 
@@ -83,9 +84,27 @@ class Test extends Controller
                 'status' => false,
             ]);
         }
-        // return response()->json($status, 200);
     }
 
+    public function resultTest(Request $request)
+    {
+       
+        // $data =json_decode( $request, TRUE);
+        $user_id= $request->id_user;
+        $data =$request->data_choice;
+        $a =json_decode($data[0]);
+        $b =$a->id_question;
+        for ($i = 0; $i <= count($data); $i++) {
+            // $a =json_decode($data[$i]);
+            // // Log::info('XXLONGDATA: ' .$a->id_question);
+          
+        }
+        // Log::info('LONGDATA: ' . count($data));
+        // Log::info('check ket quaYY: ' . $user_id);
+        return response()->json([
+            'status' => $b ,
+        ]);
+    }
     
     
 }

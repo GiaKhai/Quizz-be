@@ -49,6 +49,7 @@ Route::prefix('user')->name('users.')->group(function () {
 
 Route::get('question', [QuestionController::class,'getQuestion']);
 Route::get('answer', [QuestionController::class,'getAnswer']);
+Route::post('loading_question_test', [QuestionController::class,'loadingQuestionTest']);
 
 Route::get('test-plan', [Test::class,'getPlanList']);
 Route::post('test-plan', [Test::class,'postTestPlan']);
@@ -62,3 +63,4 @@ Route::put('test-list/{id}', [Test::class, 'updateTestItem']);
 Route::delete('test-list/{id}', [Test::class, 'deleteTestItem']);
 
 Route::post('check_plan', [Test::class,'checkPlan']);
+Route::post('resultTest', [Test::class,'resultTest']);
