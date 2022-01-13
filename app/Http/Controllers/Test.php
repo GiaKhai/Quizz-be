@@ -88,21 +88,41 @@ class Test extends Controller
 
     public function resultTest(Request $request)
     {
-       
-        // $data =json_decode( $request, TRUE);
         $user_id= $request->id_user;
         $data =$request->data_choice;
-        $a =json_decode($data[0]);
-        $b =$a->id_question;
-        for ($i = 0; $i <= count($data); $i++) {
-            // $a =json_decode($data[$i]);
-            // // Log::info('XXLONGDATA: ' .$a->id_question);
-          
+        $passCondition = 95;
+        $checkCorrect = 0;
+        $resultTest = false;
+        for ($i = 0; $i < count($data); $i++) {
+            $data_test =json_decode($data[$i]);
+            // $id_question = $data_test->id_question;
+            $choices = $data_test->user_choice;
+            $numberCorrect = 0;
+            if(count($choices) > 0){
+                for ($j = 0; $j < count($choices); $j++) {
+                    $id_answer_choice = $choices[$j];
+                    $answer = Answer::find($id_answer_choice);
+                    $correct = $answer['correct'];
+                    if($correct == 1 ){
+                        $numberCorrect=$numberCorrect+1;
+                    }
+                }
+                if($numberCorrect == count($choices))
+                {
+                    $checkCorrect =$checkCorrect+1;
+                }  
+            }   
         }
-        // Log::info('LONGDATA: ' . count($data));
-        // Log::info('check ket quaYY: ' . $user_id);
+        $percentCorrect = ($checkCorrect*100)/count($data);
+        if($percentCorrect >= $passCondition)
+        {
+            $resultTest=true;
+        }
+
         return response()->json([
-            'status' => $b ,
+            'correct' => $checkCorrect ,
+            'totalQuestion'=> count($data),
+            'resultTest'=>$resultTest
         ]);
     }
     

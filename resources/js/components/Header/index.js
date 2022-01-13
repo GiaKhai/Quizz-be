@@ -36,7 +36,9 @@ const Header = () => {
                 <a href="/">Quizz</a>
             </div>
             <nav>
-                <button onClick={showModal}>Thi</button>
+                <Link onClick={showModal} className="link" to="">
+                   Thi
+                </Link>
                 {user_role === 'Admin'? 
                 <Link className="link" to="/user">
                     Người Dùng

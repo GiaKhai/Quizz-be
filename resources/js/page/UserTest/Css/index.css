@@ -1,0 +1,63 @@
+.UserTestArea{
+    padding-bottom: 65px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.icon_check_correct{
+    color: green;
+}
+.icon_check_false{
+    color: red;
+}
+.action_button_area{
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.action_button_area>div{
+    float: right !important;
+    display: flex;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.action_button_area>div>*{
+    margin-right: 5px;
+}
+.confirmArea{
+    margin-left: 25%;
+    margin-right: 25%;
+}
+.CloseConfirm_button{
+    width: 110px;
+    height: 40px;
+    background-color: #d9d9d9;
+    border: none;
+}
+.ConfirmSubmit_button{
+    float: right;
+    width: 110px;
+    height: 40px;
+    background-color: #d9363e;
+    border: none;
+}
+.close_button,.prev_button,.next_button,.Submit_BTN{
+    width: 110px;
+    height: 40px;
+    border: none;   
+}
+.close_button{
+    background-color: #d9d9d9;
+}
+.Submit_BTN{
+    background-color: #d9363e;
+}
+.prev_button,.next_button{
+    background-color:#4d7439 ;
+}
+.title_test{
+    text-align: center;
+}

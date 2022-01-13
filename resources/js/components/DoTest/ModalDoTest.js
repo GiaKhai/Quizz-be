@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Row, Col, Modal, Select, DatePicker } from "antd";
+import { Form, Input, Row, Col, Modal, Select,Button} from "antd";
 const { Option } = Select;
 
 const ModalDoTest = ({ 
@@ -15,6 +15,14 @@ const ModalDoTest = ({
                 visible={isModalVisible}
                 onOk={handleSubmit}
                 onCancel={handleCancel}
+                footer={[
+                    <Button key="back" onClick={handleCancel}>
+                       Hủy
+                    </Button>,
+                    <Button key="submit" type="primary"  onClick={handleSubmit}>
+                      Vào thi
+                    </Button>,
+                  ]}
             >
                  <Form
                     form={form}

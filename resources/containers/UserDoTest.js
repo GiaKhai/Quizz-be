@@ -16,9 +16,7 @@ const Userdotest = ({isModalVisible, handleCancel, setIsModalVisible}) => {
             form.resetFields();
             setIsModalVisible(false);
             history.push(`/do_test/${planTest_id}`)
-            
         }
-        
     }
     return (
         <ModalDoTest

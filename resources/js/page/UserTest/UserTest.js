@@ -3,13 +3,18 @@ import { loadingQuestionTest } from "../../../constants/backend_url";
 import axios from "axios";
 import {useParams} from 'react-router-dom';
 import { MethodCommon } from '../../../common/MethodCommon'
-import {TOKEN_NAME,INFO_USER,REFRESH_TOKEN} from '../../../common/parameters'
+import {TOKEN_NAME,INFO_USER,REFRESH_TOKEN,LIMITE_PAGE} from '../../../common/parameters'
 import { Typography, Radio,Button } from "antd";
 import RadioButton from './Controls/Radio_button ';
 import { dataSubmit, chooseObject } from './Models/Models';
 import Modalconfirm from './Controls/ModalConfirm';
+import Resultpopup from './Controls/ResultPopup';
+import { useHistory } from "react-router-dom";
+import './Css/index.css'
 const { Title } = Typography;
+
 const Usertest = ({props}) => {
+    let history = useHistory();
     const { planTest_id } = useParams();
     let data_user = MethodCommon.getLocalStorage(INFO_USER)
     const [allData, setAllData]= useState([])
@@ -17,21 +22,13 @@ const Usertest = ({props}) => {
     const [valueSkip,setValueSkip]= useState(0)
     const [lastPage,setLastPage]= useState(false)
     const [firstPage,setFirtPage]= useState(false)
-
-    const [value, setValue] = useState(1);
-    const [totalPages, set_TotalPages] = useState(1)
-    const [info_pagination, setInfo_Pagination]=useState({pageNumber:1, limit:5})
+    const [isSubmit, setIsSubmit] = useState(false)
+    const [info_pagination, setInfo_Pagination]=useState({pageNumber:1, limit:LIMITE_PAGE})
     const [totalDataShowed,setTotalDataShowed ] =useState(0)
-    const[arr_value_forEach_Page,setArr_value_forEach_Page]=useState([])
-    
     let initData ={...dataSubmit}
     initData.id_user = data_user.id
     const [stateDataSubmit, setStateDataSubmit]=useState(initData)
-    // const onChange = (e) => {
-    //     console.log("radio checked", e.target.value);
-    //     setValue(e.target.value);
-    // };
-
+  
     useEffect(() => {
         axios.post(loadingQuestionTest, {}).then((res)=>{
             let dataRes = res.data
@@ -61,13 +58,11 @@ const Usertest = ({props}) => {
         })
      
     }, []);
-  
-    var dataCurrent = []
-    if(dataShowing.length>0){
-        dataCurrent=dataShowing
-    }
-    // console.log("dataCurrent:",dataCurrent)
 
+    // set submit status = true
+    const handleCheckSubmit = ()=>{
+        setIsSubmit(true)
+    }
     //handle choose option in each question
     const handle_getChooseOption =(value,questionID)=>{
         let object_data = {...stateDataSubmit}
@@ -90,7 +85,7 @@ const Usertest = ({props}) => {
         var index = newSkip
         setValueSkip(newSkip)
         var newArray =[]
-       
+        setFirtPage(false)
         for(var i=0;i<info_pagination.limit;i++){
             if(allData[index] !== undefined){
                 newArray.push(allData[index])
@@ -98,7 +93,6 @@ const Usertest = ({props}) => {
                 if(index === allData.length)
                 {
                     setLastPage(true)
-                    setFirtPage(false)
                 }
             }
         }
@@ -128,50 +122,52 @@ const Usertest = ({props}) => {
         setTotalDataShowed(totalDataShowed-newArray.length)
         setDataShowing(newArray)
     }
-    // console.log("stateDataSubmit:",stateDataSubmit)
+    //go home page
+    const handle_goHome=()=>{
+        history.push("/")
+    }
+    var dataCurrent = []
+    if(dataShowing.length>0){
+        dataCurrent=dataShowing
+    }
     return (
-        <div>
-            
+        <div className="UserTestArea">
+            <h1 className="title_test">Bài kiểm tra</h1>
             {dataCurrent?.map((ques, index) => (
                 <div key={index} className="question">
                     <Title level={4}>
                        {`${totalDataShowed - (dataCurrent.length-(index+1))}/ ${ques.question}`}
                     </Title>
                     <div className="answers">
-                        {/* <Radio.Group onChange={onChange} value={value}>
-                            {ques.answers?.map((ans) => (
-                                <Radio value={ans.answer}>{ans.answer}</Radio>
-                            ))}
-                        </Radio.Group> */}
                         <RadioButton 
                            list_option ={ques.answers}
                            handle_getChooseOption={(e)=>handle_getChooseOption(e,ques.id)}
+                           user_choices ={stateDataSubmit.data_choice}
+                           isSubmit={isSubmit}
+                           question_id={ques.id}
                         />
                     </div>
                 </div>
             ))}
-
-           <div className="action_button_area">
-                                {/* {
-                                    info_pagination.pageNumber === totalPages ? "":
-                                    <Button onClick ={handle_Next} className="next_button" type="primary">Next</Button>
-                                }
-                                {
-                                    info_pagination.pageNumber !== 1 ? 
-                                    <Button onClick ={handle_Prev}className="prev_button" type="primary">prev</Button>:""
-                                } */}
-                        {firstPage !==true ?
-                        <Button onClick ={handle_Prev}className="prev_button" type="primary">prev</Button>
-                        :''}
-                        {lastPage !==true ?
-                           <Button onClick ={handle_Next} className="next_button" type="primary">Next</Button>
-                        :''}
-                            {/* <Button onClick ={handle_Close} className="close_button" type="primary">{LANGUAGE_STATE.BUTTON_CLOSE}</Button> */}
-                            </div>
-                        <Modalconfirm
-                              dataSource={stateDataSubmit}
-                        />
+            <div className="action_button_area"> 
+                <div>
+                <Button onClick ={handle_goHome} className="close_button" type="primary">Thoát</Button>         
+                {firstPage !==true ?
+                    <Button onClick ={handle_Prev}className="prev_button" type="primary">prev</Button>
+                :''}
+                {lastPage !==true ?
+                    <Button onClick ={handle_Next} className="next_button" type="primary">Next</Button>
+                :''}
+                <Modalconfirm
+                    dataSource={stateDataSubmit}
+                    handleCheckSubmit={handleCheckSubmit}
+                />
+                </div>
+                
             </div>
+          
+            <Resultpopup/>
+        </div>
     );
 };
 
