@@ -16,7 +16,6 @@ const Modaladdquestion = ({
     const [form] = Form.useForm();
     const dispatch = useDispatch();
     const info_question = useSelector((state) => state.inFoQuestionReducer.info_question)
-   
     //handle change content of question
     function handleChangeContentQuestion(e){ 
         let new_info={...info_question}
@@ -28,6 +27,11 @@ const Modaladdquestion = ({
     function handleOK(){
         form.resetFields();
         handleSubmit(info_question)
+    }
+    function handleCancelModal(){
+        form.resetFields();
+        dispatch(getInfoQuestion(init_info_question))
+        handleCancel();
     }
     useEffect(() => { 
         form.setFieldsValue({
@@ -42,9 +46,9 @@ const Modaladdquestion = ({
             title="Thêm câu hỏi"
             visible={isModalVisible}
             onOk={handleOK}
-            onCancel={handleCancel}
+            onCancel={handleCancelModal}
             footer={[
-                <button className="inFQ_btnCancel" key="back" onClick={handleCancel}>Hủy</button>,
+                <button className="inFQ_btnCancel" key="back" onClick={handleCancelModal}>Hủy</button>,
                 <button className="inFQ_btnSubmit" key="submit" type="primary" onClick={handleOK}>Thêm</button>,
               ]}
         >
@@ -68,7 +72,6 @@ const Modaladdquestion = ({
                 <Selectcorrectanswer/>
             </div> */}
              <Form
-                    form={form}
                     className="form-modal"
                     layout="vertical"
                     name="basic"

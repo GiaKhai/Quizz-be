@@ -6,10 +6,12 @@ import './Css/index.css'
 import {deleteQuestion } from "../../../constants/backend_url";
 import { useDispatch, useSelector } from "react-redux";
 import { getQuestionAction } from "../../../actions/question.action";
+import { useForm } from "antd/lib/form/Form";
 import { message as Message } from "antd";
 const { Title } = Typography;
 const { confirm } = Modal;
 function QuestionList({  }) {
+    const [form] = useForm();
     const dispatch = useDispatch();
     const [value, setValue] = useState(1);
     const questionList = useSelector((state) => state.questionReducers.questionList);
@@ -21,6 +23,7 @@ function QuestionList({  }) {
     };
     //handle cancel modal Add
     const handleCancel = () => {
+       
         setIsModalVisible(false);
     };
     //handle delete data
@@ -62,10 +65,10 @@ function QuestionList({  }) {
                     </Title>
                     <div className="answers">
                         {ques.is_multiple === 1 ?
-                            <div>
+                            <div >
                                 {
-                                    ques.answers?.map((ans,index) => (
-                                        <div key={index}>
+                                    ques.answers?.map((ans,indexAns) => (
+                                        <div key={indexAns}>
                                             <div>
                                                 <Checkbox checked={ ans.correct===1 ? ans.id:null}>
                                                 {ans.answer}
@@ -83,10 +86,10 @@ function QuestionList({  }) {
                             </div>
                             
                         :
-                        <div>
+                        <div >
                             {
-                                ques.answers?.map((ans) => (
-                                    <div>
+                                ques.answers?.map((ans,indexAns) => (
+                                    <div key={indexAns}>
                                         <Radio.Group onChange={ null } value={ans.correct===1 ? ans.id:null}>
                                             <Radio value={ans.id}>{ans.answer}</Radio>
                                         </Radio.Group>

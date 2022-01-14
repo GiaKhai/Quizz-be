@@ -26,6 +26,7 @@ const Addquestion = ({ isModalVisible, handleCancel, setIsModalVisible }) => {
             handleSubmit={handleSubmit}
             isModalVisible={isModalVisible}
             handleCancel={handleCancel}
+
        />
     );
 };
