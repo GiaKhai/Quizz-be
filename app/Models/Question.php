@@ -29,4 +29,12 @@ class Question extends Model
         $ques = Question::inRandomOrder()->limit($numberRandom)->with('answers')->get();
         return $ques;
     }
+    public function createData($data) 
+    {
+        $ques = new Question();
+        $ques->question	 = $data->content_question;
+        $ques->is_multiple = $data->isMultiple;
+        $ques->save();
+        return $ques->id;
+    }
 }

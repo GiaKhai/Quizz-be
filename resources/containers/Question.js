@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getQuestionAction } from "../actions/question.action";
-import QuestionList from "../js/page/QuestionList";
+import QuestionList from "../js/page/QuestionList/QuestionList";
 import { MethodCommon } from '../common/MethodCommon'
 import {INFO_USER,NO_PERMISSION} from '../common/parameters'
 

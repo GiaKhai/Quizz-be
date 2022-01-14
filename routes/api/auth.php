@@ -48,6 +48,8 @@ Route::prefix('user')->name('users.')->group(function () {
 });
 
 Route::get('question', [QuestionController::class,'getQuestion']);
+Route::post('create_question', [QuestionController::class,'createQuestion']);
+Route::delete('delete_question/{id}', [QuestionController::class,'deleteQuestion']);
 Route::get('answer', [QuestionController::class,'getAnswer']);
 Route::post('loading_question_test', [QuestionController::class,'loadingQuestionTest']);
 
