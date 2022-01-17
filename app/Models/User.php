@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Support\Facades\Log;
+use App\Models\UserResultTest; //
 class  User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
@@ -17,7 +18,9 @@ class  User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'auth_token','is_verified','role'
+        'id','name', 'email', 'password','role','email_verified_at'
+        
+        //'is_verified','auth_token'
     ];
    
     public function updateUser($request,$id)
@@ -61,5 +64,9 @@ class  User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+    public function userResultTest()//
+    {
+        return $this->hasMany(UserResultTest::class);
     }
 }

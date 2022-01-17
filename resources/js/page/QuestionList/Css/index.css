@@ -1,0 +1,23 @@
+.screenQues_btnAction{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.screenQues_btnEdit,.screenQues_btnRemove{
+    width: 60px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 3px;
+    transition: 0.4s;
+    padding:3px 7px;
+    color: white;
+} 
+.screenQues_btnEdit{
+background-color: #219653;
+}
+.screenQues_btnRemove{
+background-color: #f16037;
+}
+.screenQues_btnEdit:hover,.screenQues_btnRemove:hover{
+    background-color: #096dd9;
+    transition: 0.4s;
+}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TestPlan;
 use App\Models\TestList;
+use App\Models\Answer;
 use Illuminate\Support\Facades\Log;
 
 
@@ -66,9 +67,64 @@ class Test extends Controller
     }
     
 
-     public function destroy($id)
+    public function destroy($id)
     {
         return TestPlan::destroy($id);
     }
+    public function checkPlan(Request $request)
+    {
+        $plan = TestPlan::find($request->planTest_id);
+        $status=$plan['status'];
+        if($status === 1){
+            return response()->json([
+                'status' => true,
+            ]);
+        }else{
+            return response()->json([
+                'status' => false,
+            ]);
+        }
+    }
+
+    public function resultTest(Request $request)
+    {
+        $user_id= $request->id_user;
+        $data =$request->data_choice;
+        $passCondition = 95;
+        $checkCorrect = 0;
+        $resultTest = false;
+        for ($i = 0; $i < count($data); $i++) {
+            $data_test =json_decode($data[$i]);
+            // $id_question = $data_test->id_question;
+            $choices = $data_test->user_choice;
+            $numberCorrect = 0;
+            if(count($choices) > 0){
+                for ($j = 0; $j < count($choices); $j++) {
+                    $id_answer_choice = $choices[$j];
+                    $answer = Answer::find($id_answer_choice);
+                    $correct = $answer['correct'];
+                    if($correct == 1 ){
+                        $numberCorrect=$numberCorrect+1;
+                    }
+                }
+                if($numberCorrect == count($choices))
+                {
+                    $checkCorrect =$checkCorrect+1;
+                }  
+            }   
+        }
+        $percentCorrect = ($checkCorrect*100)/count($data);
+        if($percentCorrect >= $passCondition)
+        {
+            $resultTest=true;
+        }
+
+        return response()->json([
+            'correct' => $checkCorrect ,
+            'totalQuestion'=> count($data),
+            'resultTest'=>$resultTest
+        ]);
+    }
+    
     
 }

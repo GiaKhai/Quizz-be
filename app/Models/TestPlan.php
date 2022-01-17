@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TestList;
+use App\Models\UserResultTest; //
 
 
 class TestPlan extends Model
@@ -22,7 +23,11 @@ class TestPlan extends Model
     {
         return $this->belongsTo(TestList::class);
     }
-
+    public function userResultTest()//
+    {
+        // return $this->belongsTo(UserResultTest::class);
+        return $this->hasMany(UserResultTest::class);
+    }
     public function getPlan() 
     {
         $plan = TestPlan::with('TestPlan')->get();

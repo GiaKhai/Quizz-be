@@ -20,8 +20,21 @@ class Question extends Model
 
     public function getListQuestion() 
     {
-        $numberRandom=2;
-        $ques =  Question::inRandomOrder()->limit($numberRandom)->with('answers')->get();
+        $ques =  Question::with('answers')->get();
         return $ques;
+    }
+    public function getListQuestionRandom() 
+    {
+        $numberRandom=20;
+        $ques = Question::inRandomOrder()->limit($numberRandom)->with('answers')->get();
+        return $ques;
+    }
+    public function createData($data) 
+    {
+        $ques = new Question();
+        $ques->question	 = $data->content_question;
+        $ques->is_multiple = $data->isMultiple;
+        $ques->save();
+        return $ques->id;
     }
 }

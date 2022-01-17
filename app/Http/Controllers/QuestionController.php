@@ -16,7 +16,47 @@ class QuestionController extends Controller
         $list = $ques->getListQuestion();
         return response()->json($list, 200);
     }
+    public function loadingQuestionTest() 
+    {
+        $ques = new Question();
+        $list = $ques->getListQuestionRandom();
+        return response()->json($list, 200);
+    }
 
+    public function createQuestion(Request $request) 
+    {
+        $ques = new Question();
+        $id_ques= $ques->createData($request);
+        $answer_options = $request->answer_choices;
+        $correct_answers = $request->answer_correct;
+        for ($i = 0; $i < count($answer_options); $i++) {
+            $item =json_decode($answer_options[$i]);
+            $ans = new Answer();
+            if (in_array($item->key, $correct_answers))
+            {
+                $ans->question_id	=  $id_ques;
+                $ans->answer	= $item->content;
+                $ans->correct	=  1;
+                $ans->saveData($ans);
+            }
+            else
+            {
+                $ans->question_id	=  $id_ques;
+                $ans->answer	= $item->content;
+                $ans->correct	=  0;
+                $ans->saveData($ans);
+            }
+        }
+        return response()->json([
+            'status' => true,
+        ]);
+    }
+    public function deleteQuestion($id) 
+    {
+        return Question::destroy($id);
+    }
+    
+    
 // public function getAnswer() 
 //     {
 //         $ques = Answer::all();
