@@ -37,4 +37,13 @@ class Question extends Model
         $ques->save();
         return $ques->id;
     }
+    public function updateData($data) 
+    {
+        $id_Question= $data->id;
+        $ques = Question::find($id_Question);
+        $ques->question = $data->content_question;
+        $ques->is_multiple = $data->isMultiple;
+        $ques->save();
+    }
+  
 }

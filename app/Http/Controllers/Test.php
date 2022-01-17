@@ -17,7 +17,13 @@ class Test extends Controller
         $list = $plan->getPlan();    
         return response()->json($list, 200);
     }
-
+    public function  getPlanListPublist() 
+    {
+        $plan = new TestPlan();
+        $list = $plan->getPlanPublic();    
+        return response()->json($list, 200);
+    }
+   
     public function getTestList() 
     {  
         $list = TestList::all();
@@ -43,7 +49,7 @@ class Test extends Controller
     
     public function postTestPlan(Request $request) 
     {
-        Log::info($request);
+        // Log::info($request);
         return TestPlan::create($request->all());
     }
 
@@ -95,24 +101,24 @@ class Test extends Controller
         $resultTest = false;
         for ($i = 0; $i < count($data); $i++) {
             $data_test =json_decode($data[$i]);
-            // $id_question = $data_test->id_question;
             $choices = $data_test->user_choice;
-            $numberCorrect = 0;
+            $numberCorrectEachQuestion =0;
             if(count($choices) > 0){
                 for ($j = 0; $j < count($choices); $j++) {
                     $id_answer_choice = $choices[$j];
                     $answer = Answer::find($id_answer_choice);
                     $correct = $answer['correct'];
                     if($correct == 1 ){
-                        $numberCorrect=$numberCorrect+1;
+                        $numberCorrectEachQuestion= $numberCorrectEachQuestion+1;
                     }
-                }
-                if($numberCorrect == count($choices))
-                {
-                    $checkCorrect =$checkCorrect+1;
-                }  
+                    if($numberCorrectEachQuestion == count($choices) )
+                    {
+                        $checkCorrect =  $checkCorrect+1;
+                    }
+                } 
             }   
         }
+        
         $percentCorrect = ($checkCorrect*100)/count($data);
         if($percentCorrect >= $passCondition)
         {

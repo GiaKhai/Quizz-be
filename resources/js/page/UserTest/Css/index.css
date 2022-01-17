@@ -61,3 +61,25 @@
 .title_test{
     text-align: center;
 }
+
+.mainTest_Area{
+    display: flex;
+}
+.listQuestionCurrent{
+    width: 75%;
+}
+.AllQuestion{
+    width: 20%;
+    margin-left: 3%;
+}
+.itemQuestionTracking{
+    background-color: #d9d9d9;
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+}

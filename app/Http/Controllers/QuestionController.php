@@ -55,6 +55,36 @@ class QuestionController extends Controller
     {
         return Question::destroy($id);
     }
+    public function updateQuestion(Request $request) {
+        $id_Question= $request->id;
+        $answer_options=$request->answer_choices;
+        $ques = new Question();
+        $ques->updateData($request);
+        $correct_answers = $request->answer_correct;
+      
+        for ($i = 0; $i < count($answer_options); $i++) {
+            $item =json_decode($answer_options[$i]);
+
+            $item_id=$item->id;
+      
+            if (in_array($item->key, $correct_answers))
+            {
+                $ans = Answer::find($item_id);
+                $ans->answer	= $item->content;
+                $ans->correct	=  1;
+                $ans->saveData($ans);
+            }else{
+                $ans = Answer::find($item_id);
+                $ans->answer	= $item->content;
+                $ans->correct	=  0;
+                $ans->saveData($ans);
+            }
+        }
+        return response()->json([
+            'status' => true,
+        ]);
+    }
+    
     
     
 // public function getAnswer() 

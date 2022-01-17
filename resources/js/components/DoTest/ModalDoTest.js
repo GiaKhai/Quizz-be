@@ -1,5 +1,10 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Form, Input, Row, Col, Modal, Select,Button} from "antd";
+import { useDispatch, useSelector } from "react-redux";
+// import { getPlanAction } from "../../actions/testPlan.action";
+import { getPlanAction ,getPlanActionPublic} from "../../../actions/testPlan.action";
+import { useHistory } from "react-router-dom";
+import './index.css'
 const { Option } = Select;
 
 const ModalDoTest = ({ 
@@ -8,52 +13,40 @@ const ModalDoTest = ({
     handleSubmit,
     form
 }) => {
+    let history = useHistory();
+    // history.push("/login")
+    const dispatch = useDispatch();
+    const planList = useSelector((state) => state.planReducers.planList);
+    // history.push(`/do_test/${planTest_id}`)
+    console.log("planList:",planList)
+    const handeGotoTestPage=(id)=>{
+        history.push(`/do_test/${id}`)
+    }
+    useEffect(() => {
+        dispatch(getPlanActionPublic());
+    }, [dispatch]);
     return (
         <div>
              <Modal
                 title="Kế hoạch thi"
                 visible={isModalVisible}
-                onOk={handleSubmit}
                 onCancel={handleCancel}
-                footer={[
-                    <Button key="back" onClick={handleCancel}>
-                       Hủy
-                    </Button>,
-                    <Button key="submit" type="primary"  onClick={handleSubmit}>
-                      Vào thi
-                    </Button>,
-                  ]}
+                footer={null}
             >
-                 <Form
-                    form={form}
-                    className="form-modal"
-                    wrapperCol={{ span: 20 }}
-                    layout="vertical"
-                    name="nest-messages"
-                >
-                    <Row>
-                        <Col xs={{ span: 24 }}>
-                            <Form.Item
-                                name="planTest_id"
-                                id="planTest_id"
-                                label="Nhập mã kế hoạch"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "Vui lòng nhập mã kế hoạch",
-                                    },
-                                ]}
-                            >
-                                <Input />
-                            </Form.Item>
+                <div className="planlist_public_area">   
+                <Row className = "search_area" > 
+                    {planList?.map((ques, index) => (
+                        <Col xs={8} sm={8} md={8} lg={6} xl={6}>
+                         <div className="Plan_Item" onClick={()=>handeGotoTestPage(ques.id)}>
+                            <div>
+                                 <p>{ques.id}</p>
+                            </div>
+                        </div>
                         </Col>
-                        
-
-
-                        
-                    </Row>
-                </Form>
-
+                   
+                    ))}
+                     </Row>
+                </div>
             </Modal>
         </div>
     );

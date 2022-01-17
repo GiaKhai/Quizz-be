@@ -33,4 +33,9 @@ class TestPlan extends Model
         $plan = TestPlan::with('TestPlan')->get();
         return $plan;
     }
+    public function getPlanPublic() 
+    {
+        $plan = TestPlan::with('TestPlan')->where('status', 1)->get();
+        return $plan;
+    }
 }

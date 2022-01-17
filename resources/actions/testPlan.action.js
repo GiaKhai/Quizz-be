@@ -1,5 +1,5 @@
 import axios from "axios";
-import { testPlanURL } from "../constants/backend_url";
+import { testPlanURL ,testPlanURLPublic} from "../constants/backend_url";
 import { testPlanConstants } from "../constants/testPlan.contants";
 import { message as Message } from "antd";
 
@@ -64,3 +64,15 @@ export const updateTestPlan = async (body, id) => {
         return { success: false };
     }
 };
+export const getPlanActionPublic = () => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.get(testPlanURLPublic);
+            if (response.status === 200) {
+                dispatch(getPlanSuccess(response));
+            }
+        } catch (error) {
+            dispatch(getPlanFail());
+        }
+    };
+}

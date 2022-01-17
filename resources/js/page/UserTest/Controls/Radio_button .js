@@ -68,9 +68,9 @@ const RadioButton = ({
         <div>
             <Radio.Group  onChange={isSubmit===true?null:onChange} defaultValue={value} value={value}>
             <Space direction="vertical">
-                {list_option.map((item,index) =>
+                {list_option.map((item) =>
                     (
-                    <Radio key={index} className="option_item" value={item.id}>{item.answer} {checkCorrect(item.correct)} {checkFail(item.correct,value,item.id)}</Radio>
+                    <Radio  key={item.id} className="option_item" value={item.id}>{item.answer} {checkCorrect(item.correct)} {checkFail(item.correct,value,item.id)}</Radio>
                     )
                 )}
             </Space>

@@ -15,11 +15,13 @@ const Modalconfirm = ({dataSource,handleCheckSubmit}) => {
         setIsModalVisible(false);
     };
     function handle_ConfirmSubmit(){
-        for(var i=0;i < dataSource.data_choice.length;i++)
+        let clone_dataSource={...dataSource}
+
+        for(var i=0;i < clone_dataSource.data_choice.length;i++)
         {
-            dataSource.data_choice[i]=JSON.stringify(dataSource.data_choice[i])
+            clone_dataSource.data_choice[i]=JSON.stringify(clone_dataSource.data_choice[i])
         }
-        Service.checkResultTest(dataSource).then((res)=>{
+        Service.checkResultTest(clone_dataSource).then((res)=>{
             var result = res.data
             result.isVisibleModal=true,
             setIsModalVisible(false);

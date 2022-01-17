@@ -6,7 +6,7 @@ import { getInfoQuestion } from "../../../actions/question.action";
 import { useDispatch, useSelector } from "react-redux";
 
 const { TextArea } = Input;
-const Tableanswerchoice = () => {
+const Tableanswerchoice = ({handleChangeAnswerOption}) => {
 
     const dispatch = useDispatch();
     const info_question = useSelector((state) => state.inFoQuestionReducer.info_question)
@@ -26,9 +26,9 @@ const Tableanswerchoice = () => {
         });
         let new_info={...info_question}
         new_info.answer_choices=newArr
-        dispatch(getInfoQuestion(new_info))
+        handleChangeAnswerOption(newArr)
+        // dispatch(getInfoQuestion(new_info))
         handleChange_DataSource(newArr);
-        
     }
     const columns = [
         {
@@ -55,10 +55,10 @@ const Tableanswerchoice = () => {
               }
         },
     ];
-    useEffect(() => { 
-        let dataSourceInit = info_question.answer_choices
-        handleChange_DataSource(dataSourceInit)
-    })
+    // useEffect(() => { 
+    //     let dataSourceInit = info_question.answer_choices
+    //     handleChange_DataSource(dataSourceInit)
+    // })
     return (
         <div>
             <Table  
