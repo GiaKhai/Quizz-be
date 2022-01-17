@@ -40,3 +40,16 @@ export const postUserAction = async (body) => {
         return { success: false };
     }
 };
+
+export const updateUserAction = async (id,body) => {
+    try {
+        const result = await axios.put(`${userURL}/${id}`, body);
+        if (result.status === 200) {
+            Message.success("Add success");
+            return { success: true };
+        }
+    } catch (error) {
+        return { success: false };
+    }
+};
+

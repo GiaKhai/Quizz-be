@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -44,9 +45,16 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        return User::destroy($id);
+        $user = new User();
+        $user->deleteUser($id);
+       
     }
-
+    public function updateUser(Request $request,$id)
+    {
+        $user = new User();
+        $user->updateUser($request,$id);
+    }
+    
     public function login(Request $request)
     {
 
@@ -70,7 +78,7 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $payload = [
-            'password'=>\Hash::make($request->password),
+            'password'=>Hash::make($request->password),
             'email'=>$request->email,
             'name'=>$request->name,
             'auth_token'=> ''

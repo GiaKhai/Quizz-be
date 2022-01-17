@@ -42,6 +42,7 @@ Route::prefix('user')->name('users.')->group(function () {
     Route::get('', [UserController::class, 'getUser']); 
     Route::post('', [UserController::class, 'postUser']);
     Route::delete('/{id}', [UserController::class, 'destroy']); 
+    Route::put('/{id}', [UserController::class, 'updateUser']);
 });
 
 Route::get('question', [QuestionController::class,'getQuestion']);
