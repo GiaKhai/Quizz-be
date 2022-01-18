@@ -14,7 +14,7 @@ class UserResultTest extends Migration
     public function up()
     {
         //
-        Schema::create('user_result_test', function (Blueprint $table) {
+        Schema::create('user_result_tests', function (Blueprint $table) {
             $table->increments("id");
             $table->bigInteger("number_correct");
             $table->bigInteger("total_question");

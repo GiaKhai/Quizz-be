@@ -10,10 +10,13 @@ export const testListURL = "http://127.0.0.1:8000/api/test-list";
 
 export const checkPlanURL = "http://127.0.0.1:8000/api/check_plan";
 
-export const loadingQuestionTest = "http://127.0.0.1:8000/api/loading_question_test";
+export const loadingQuestionTest =
+    "http://127.0.0.1:8000/api/loading_question_test";
 
 export const resultTest = "http://127.0.0.1:8000/api/resultTest";
 
 export const createQuestion = "http://127.0.0.1:8000/api/create_question";
 
 export const deleteQuestion = "http://127.0.0.1:8000/api/delete_question";
+
+export const planResultTest = "http://127.0.0.1:8000/api/plan-result-test";

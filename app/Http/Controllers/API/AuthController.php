@@ -61,9 +61,12 @@ class AuthController extends Controller
     }
     public function login(LoginRequest $request)
     {
-        $user = User::where('email', $request->email)->get()->first();
+        Log::info('LOGIN XX');
+        Log::info($request);
+         $user = User::where('email', $request->email)->get()->first();
         if ($user !==null) {
             if (Hash::check($request->password, $user['password'])) {  //if The passwords match
+                Log::info('DMK');
                 $jwt_token = null;
                 $customClaims = [
                     'id'=> $user['id'],

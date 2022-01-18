@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TestPlan;
 use App\Models\TestList;
 use App\Models\Answer;
+use App\Models\UserResultTest;
 use Illuminate\Support\Facades\Log;
 
 
@@ -15,7 +16,7 @@ class Test extends Controller
     {
         $plan = new TestPlan();
         $list = $plan->getPlan();    
-        return response()->json($list, 200);
+
     }
 
     public function getTestList() 
@@ -43,7 +44,6 @@ class Test extends Controller
     
     public function postTestPlan(Request $request) 
     {
-        Log::info($request);
         return TestPlan::create($request->all());
     }
 
@@ -125,6 +125,16 @@ class Test extends Controller
             'resultTest'=>$resultTest
         ]);
     }
-    
+
+    public function getPlanResult() 
+    {
+        $list = UserResultTest::all();
+        return response()->json($list, 200);
+    }
+
+    public function postPlanResult(Request $request) 
+    {
+        return UserResultTest::create($request->all());
+    }
     
 }

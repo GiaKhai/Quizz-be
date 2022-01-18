@@ -1,30 +1,25 @@
 import React from "react";
-import { Form, Input, Row, Col, Modal, Select,Button} from "antd";
+import { Form, Input, Row, Col, Modal, Select, Button } from "antd";
 const { Option } = Select;
 
-const ModalDoTest = ({ 
-    handleCancel,
-    isModalVisible,
-    handleSubmit,
-    form
-}) => {
+const ModalDoTest = ({ handleCancel, isModalVisible, handleSubmit, form }) => {
     return (
         <div>
-             <Modal
+            <Modal
                 title="Kế hoạch thi"
                 visible={isModalVisible}
                 onOk={handleSubmit}
                 onCancel={handleCancel}
                 footer={[
                     <Button key="back" onClick={handleCancel}>
-                       Hủy
+                        Hủy
                     </Button>,
-                    <Button key="submit" type="primary"  onClick={handleSubmit}>
-                      Vào thi
+                    <Button key="submit" type="primary" onClick={handleSubmit}>
+                        Vào thi
                     </Button>,
-                  ]}
+                ]}
             >
-                 <Form
+                <Form
                     form={form}
                     className="form-modal"
                     wrapperCol={{ span: 20 }}
@@ -47,13 +42,8 @@ const ModalDoTest = ({
                                 <Input />
                             </Form.Item>
                         </Col>
-                        
-
-
-                        
                     </Row>
                 </Form>
-
             </Modal>
         </div>
     );
