@@ -11,6 +11,7 @@ const { confirm } = Modal;
 function TestPlan({ planList, updateStatus }) {
     const dispatch = useDispatch();
     const testPlan = useSelector((state) => state.planReducers.planList);
+    console.log("testPlan:",testPlan)
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalVisibleEdit, setIsModalVisibleEdit] = useState(false);
     const [pageSize, setPageSize] = useState(10);
@@ -91,11 +92,16 @@ function TestPlan({ planList, updateStatus }) {
             align: "center",
         },
         {
-            title: "Mã bài kiểm tra",
-            dataIndex: "test_id",
-            key: "test_id",
+            title: "Tổng số câu hỏi",
+            dataIndex: "number_question",
+            key: "number_question",
             align: "center",
-            width: 130,
+        },
+        {
+            title: "Số câu điều kiện vượt qua",
+            dataIndex: "number_question_pass",
+            key: "number_question_pass",
+            align: "center",
         },
         {
             key: "status",

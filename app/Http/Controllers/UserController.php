@@ -56,7 +56,14 @@ class UserController extends Controller
     {
         return User::destroy($id);
     }
-
+    ///
+    public function updateUser(Request $request,$id){
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role = $request->role;
+        $user->save();
+    }
     public function login(Request $request)
     {
         $user = User::where('email', $request->email)->get()->first();

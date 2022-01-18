@@ -13,8 +13,7 @@ class Test extends Controller
 {
     public function getPlanList() 
     {
-        $plan = new TestPlan();
-        $list = $plan->getPlan();    
+        $list  = TestPlan::all();
         return response()->json($list, 200);
     }
     public function  getPlanListPublist() 
@@ -65,8 +64,9 @@ class Test extends Controller
         $plan = TestPlan::find($id);
         $plan->title = $request->title;
         $plan->schedule = $request->schedule;
-        $plan->test_id = $request->test_id;
         $plan->test_date = $request->test_date;
+        $plan->number_question = $request->number_question;
+        $plan->number_question_pass = $request->number_question_pass;
         $plan->save();
         $list = TestPlan::all();
         return response()->json($list, 200);

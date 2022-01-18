@@ -53,10 +53,7 @@ const Header = () => {
                 <Link className="link" to="/question">
                     Câu hỏi
                 </Link>:''}
-                {user_role === 'Admin'? 
-                <Link className="link" to="/test-list">
-                    Bài kiểm tra
-                </Link>:''}
+
                 <div>
                    { `Wellcome ${data_user.name}`}
                    {data_user.name !== null ? <button onClick={handleLogout}>Logout</button> :''}

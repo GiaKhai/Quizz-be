@@ -39,7 +39,7 @@ const ModalDoTest = ({
                         <Col xs={8} sm={8} md={8} lg={6} xl={6}>
                          <div className="Plan_Item" onClick={()=>handeGotoTestPage(ques.id)}>
                             <div>
-                                 <p>{ques.id}</p>
+                               {ques.id}
                             </div>
                         </div>
                         </Col>

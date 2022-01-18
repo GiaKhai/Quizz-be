@@ -7,7 +7,7 @@ import ModalEditPlan from "../js/components/Plan/ModalEditPlan";
 
 const EditPlan= ({ isModalVisible, handleCancel, form, setIsModalVisible,dataEdit}) => {
     const dispatch = useDispatch();
-    const testList = useSelector((state) => state.testListReducers.testList);
+    // const testList = useSelector((state) => state.testListReducers.testList);
 
     useEffect(() => {
         dispatch(getListAction());
@@ -17,12 +17,13 @@ const EditPlan= ({ isModalVisible, handleCancel, form, setIsModalVisible,dataEdi
     const handleSubmit = async (test) => {
         try {
             await form.validateFields();
-            let { title, test_date, test_id, schedule} =
+            let { title, test_date, number_question_pass, number_question, schedule} =
                 form.getFieldsValue();
             let body = {
                 title,
                 test_date: test_date.format("YYYY-MM-DD"),
-                test_id,
+                number_question_pass,
+                number_question,
                 schedule,
             };
             let id = dataEdit.id
@@ -42,7 +43,6 @@ const EditPlan= ({ isModalVisible, handleCancel, form, setIsModalVisible,dataEdi
             handleSubmit={handleSubmit}
             isModalVisible={isModalVisible}
             handleCancel={handleCancel}
-            testList={testList}
             dataEdit={dataEdit}
         />
     );

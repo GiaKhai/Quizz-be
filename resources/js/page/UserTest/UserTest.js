@@ -1,7 +1,6 @@
-import React,{ useState, useEffect } from 'react';
+import React,{ useState, useEffect} from 'react';
 import { loadingQuestionTest } from "../../../constants/backend_url";
 import axios from "axios";
-import {useParams} from 'react-router-dom';
 import { MethodCommon } from '../../../common/MethodCommon'
 import {TOKEN_NAME,INFO_USER,REFRESH_TOKEN,LIMITE_PAGE} from '../../../common/parameters'
 import { Typography, Radio,Button ,Row, Col} from "antd";
@@ -12,9 +11,11 @@ import Resultpopup from './Controls/ResultPopup';
 import { useHistory } from "react-router-dom";
 import './Css/index.css'
 import CheckBoxButton from './Controls/CheckBox_button';
+
 const { Title } = Typography;
 
 const Usertest = ({props}) => {
+
     let history = useHistory();
     let data_user = MethodCommon.getLocalStorage(INFO_USER)
     const [allData, setAllData]= useState([])
@@ -24,18 +25,20 @@ const Usertest = ({props}) => {
     const [firstPage,setFirtPage]= useState(false)
     const [isSubmit, setIsSubmit] = useState(false)
     const [info_pagination, setInfo_Pagination]=useState({pageNumber:1, limit:LIMITE_PAGE})
+    const [gotoQuestionId,setGotoQuestionId]=useState(null)
     let initData ={...dataSubmit}
     initData.id_user = data_user.id
     const [stateDataSubmit, setStateDataSubmit]=useState(initData)
-  
+
     useEffect(() => {
         axios.post(loadingQuestionTest, {}).then((res)=>{
             let dataRes = res.data
+           
             for(var i=0;i<dataRes.length;i++)
             {
                 dataRes[i].index=i+1
             }
-
+          
             let newArray = dataRes.slice(0,info_pagination.limit)
             if(newArray.length === dataRes.length)
             {
@@ -59,10 +62,19 @@ const Usertest = ({props}) => {
             setAllData(dataRes)
             setDataShowing(newArray)
         })
-     
+   
     }, []);
 
-    // set submit status = true
+    useEffect(() => {
+       if(gotoQuestionId !==null )
+       {
+          let item = document.getElementsByClassName(`question${gotoQuestionId}`);
+          let item_position = item[0].offsetTop;
+          window.scrollTo({top:item_position,behavior: 'smooth'});
+       }
+    })
+
+    //set submit = true
     const handleCheckSubmit = ()=>{
         setIsSubmit(true)
     }
@@ -146,7 +158,64 @@ const Usertest = ({props}) => {
             stateDataSubmit.data_choice[i]=JSON.parse(stateDataSubmit.data_choice[i])
         }
     }
-    console.log("stateDataSubmit:",stateDataSubmit)
+    //go to question clicked
+    let handle_GotoQuestion=(id,index)=>{
+        console.log("index:",index)
+        let newSkip = LIMITE_PAGE;
+        var newArray = [...allData];
+        var item_found=false;
+        var isBettweenPage = true;
+        var skipPage=null;
+        do {
+           let arrayCompare=[];
+           if(newArray.length < LIMITE_PAGE)
+           {
+              skipPage = allData.length - newArray.length
+              arrayCompare=newArray
+           }else{
+                skipPage = allData.length - newArray.length
+                for(var i=0; i< newSkip; i++){
+                    arrayCompare.push(newArray.shift())
+                }
+           }
+           setValueSkip(skipPage)
+           for(var j=0; j<arrayCompare.length; j++){
+                if(id === arrayCompare[j].id){
+                    item_found=true
+                }
+            }
+           
+            if(item_found === true)
+            {
+                for(var m=0; m < arrayCompare.length; m++)
+                {
+                    if(arrayCompare[m].index === allData.length)
+                    {
+                        setLastPage(true)
+                        setFirtPage(false)
+                        isBettweenPage = false
+                    }
+                    if(arrayCompare[m].index === 1){
+                        isBettweenPage = false
+                        setFirtPage(true)
+                        setLastPage(false)
+                    }
+                }
+                if(isBettweenPage === true)
+                {
+                    setFirtPage(false)
+                    setLastPage(false)
+                }
+                setDataShowing(arrayCompare)
+                setGotoQuestionId(index)
+                // xx(listRef.current[index])
+                // console.log(listRef.current[index])
+            }
+            // let a=  document.getElementsByClassName(`question${index}`)
+            // console.log("a:",a)
+        }while(!item_found);
+    }
+    
     return (
         <div className="UserTestArea">
             <div>
@@ -154,7 +223,7 @@ const Usertest = ({props}) => {
                 <div className="mainTest_Area">
                     <div className="listQuestionCurrent">
                         {dataCurrent?.map((ques, index) => (
-                            <div key={index} className="question">
+                            <div key={index}  className={`question${ques.index}`}>
                                 <Title level={4}>
                                 {`${ques.index}/ ${ques.question}`}
                                 </Title>
@@ -186,12 +255,15 @@ const Usertest = ({props}) => {
                              <div>
                                 <Row className = "search_area" > 
                                     {stateDataSubmit.data_choice?.map((item, index) => (
-                                        <Col xs={8} sm={8} md={8} lg={4} xl={4}>
-                                            <div className="itemQuestionTracking" style={{ backgroundColor: item.user_choice.length >0 ? '#7ec1ff':'#ff7875' }} >
+                                        <Col key={index} xs={8} sm={8} md={8} lg={4} xl={4}>
+                                            <div 
+                                               className="itemQuestionTracking" 
+                                               style={{ backgroundColor: item.user_choice.length >0 ? '#7ec1ff':'#ff7875' }} 
+                                               onClick={()=>handle_GotoQuestion(item.id_question,index+1)}
+                                            >
                                             {index+1}
                                             </div>
                                         </Col>
-                                        // style={{ backgroundColor: item.user_choice.length >0 ? '#7ec1ff':'#ff7875' }}
                                     ))
                                     }
                                 </Row>

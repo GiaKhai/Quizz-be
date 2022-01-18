@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { getListAction } from "../actions/testList.action";
 import ModalAddPlan from "../js/components/Plan/ModalAddPlan";
 import { useDispatch, useSelector } from "react-redux";
 import { message as Message } from "antd";
@@ -7,20 +6,19 @@ import { getPlanAction, postPlanAction } from "../actions/testPlan.action";
 
 const AddUser = ({ isModalVisible, handleCancel, form, setIsModalVisible }) => {
     const dispatch = useDispatch();
-    const testList = useSelector((state) => state.testListReducers.testList);
     useEffect(() => {
-        dispatch(getListAction());
     }, [dispatch]);
 
     const handleSubmit = async (test) => {
         try {
             await form.validateFields();
-            let { title, test_date, test_id, schedule, status } =
+            let { title, test_date, schedule, status, number_question_pass, number_question } =
                 form.getFieldsValue();
             let body = {
                 title,
                 test_date: test_date.format("YYYY-MM-DD"),
-                test_id,
+                number_question_pass,
+                number_question,
                 schedule,
                 status,
             };
@@ -39,7 +37,6 @@ const AddUser = ({ isModalVisible, handleCancel, form, setIsModalVisible }) => {
             handleSubmit={handleSubmit}
             isModalVisible={isModalVisible}
             handleCancel={handleCancel}
-            testList={testList}
         />
     );
 };

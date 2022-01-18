@@ -21,6 +21,7 @@ const Modalconfirm = ({dataSource,handleCheckSubmit}) => {
         {
             clone_dataSource.data_choice[i]=JSON.stringify(clone_dataSource.data_choice[i])
         }
+
         Service.checkResultTest(clone_dataSource).then((res)=>{
             var result = res.data
             result.isVisibleModal=true,

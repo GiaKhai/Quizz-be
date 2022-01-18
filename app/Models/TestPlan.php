@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\TestList;
 use App\Models\UserResultTest; //
 
-
 class TestPlan extends Model
 {
     protected $fillable = [
@@ -16,13 +15,14 @@ class TestPlan extends Model
         'schedule',
         'test_date',
         'status',
-        'test_id'
+        'number_question',
+        'number_question_pass'
     ];
 
-    public function testPlan()
-    {
-        return $this->belongsTo(TestList::class);
-    }
+    // public function testPlan()
+    // {
+    //     return $this->belongsTo(TestList::class);
+    // }
     public function userResultTest()//
     {
         // return $this->belongsTo(UserResultTest::class);
