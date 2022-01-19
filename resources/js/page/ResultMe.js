@@ -51,4 +51,3 @@ const ResusltMe = ({ list }) => {
 };
 
 export default ResusltMe;
-~
