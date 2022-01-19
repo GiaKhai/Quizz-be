@@ -43,6 +43,13 @@ const Header = () => {
                 <Link onClick={showModal} className="link" to="">
                     Thi
                 </Link>
+                {user_role === "User" ? (
+                    <Link className="link" to="/result-me">
+                        Kết quả
+                    </Link>
+                ) : (
+                    ""
+                )}
                 {user_role === "Admin" ? (
                     <Link className="link" to="/user">
                         Người Dùng
@@ -53,7 +60,7 @@ const Header = () => {
 
                 {user_role === "Admin" ? (
                     <Link className="link" to="/test-plan">
-                        Kế hoạch
+                        Kì thi
                     </Link>
                 ) : (
                     ""
