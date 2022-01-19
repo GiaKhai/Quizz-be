@@ -25,7 +25,7 @@ export const postPlanResultTest = async (body) => {
     try {
         const result = await axios.post(planResultTest, body);
         if (result.status === 201) {
-            Message.success("Add success");
+            // Message.success("Add success");
             return { success: true };
         }
     } catch (error) {

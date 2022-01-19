@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Button, Table } from "antd";
 
 const ResusltTestByPlan = ({ resultList }) => {
-    console.log(resultList);
     const columns = [
         {
             title: "STT",
@@ -35,12 +34,23 @@ const ResusltTestByPlan = ({ resultList }) => {
             key: "total_question",
             align: "center",
         },
-        // {
-        //     title: "Kết quả",
-        //     dataIndex: "result_test",
-        //     key: "result_test",
-        //     align: "center",
-        // },
+        {
+            title: "Kết quả",
+            dataIndex: "result_test",
+            key: "result_test",
+            align: "center",
+            render: (_, record) => {
+                let result;
+                if (record.result_test === "true") {
+                    result = "Đậu";
+                } else if (record.result_test === "false") {
+                    result = "Rớt";
+                } else {
+                    result = "Lỗi";
+                }
+                return <div>{result}</div>;
+            },
+        },
     ];
     return (
         <div className="content-page">

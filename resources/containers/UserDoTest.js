@@ -11,7 +11,6 @@ const Userdotest = ({ isModalVisible, handleCancel, setIsModalVisible }) => {
         let body = {
             planTest_id,
         };
-        console.log(planTest_id);
         const { success } = await checkPlan(body);
         if (success) {
             form.resetFields();

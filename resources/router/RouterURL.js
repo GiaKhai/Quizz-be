@@ -5,20 +5,14 @@ import QuestionContainer from "../containers/Question";
 import TestList from "../js/page/TestList";
 import TestPlanContainer from "../containers/TestPlan";
 import Login from "../js/page/Login";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LayoutCommon from "../js/components/LayoutCommon/LayoutCommon";
 import PrivateRoute from "./PrivateRoute";
 import Usertest from "../js/page/UserTest/UserTest";
 import Result from "../containers/Result";
 import YourResult from "../containers/ResultMe";
 
-const Routerurl = ({}) => {
+const Routerurl = () => {
     return (
         <div>
             <Switch>

@@ -4,25 +4,33 @@ import { Service } from "../Services/Services";
 import { message as Message } from "antd";
 import { getResultTestUer } from "../../../../actions/getResultTest.action";
 import { postPlanResultTest } from "../../../../actions/result.action";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { MethodCommon } from "../../../../common/MethodCommon";
 import { INFO_USER } from "../../../../common/parameters";
 
 import "../Css/index.css";
 const Modalconfirm = ({ dataSource, handleCheckSubmit }) => {
-    console.log(dataSource);
-
     const dispatch = useDispatch();
     let { planTest_id } = useParams();
     let data_user = MethodCommon.getLocalStorage(INFO_USER);
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isResult, setIsResult] = useState(false);
+
     const showModal = () => {
         setIsModalVisible(true);
     };
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+    const resultTest = useSelector(
+        (state) => state.resultTestReducers.resultTest.resultTest
+    );
+
+    // useEffect(() => {
+    //     setIsResult(resultTest);
+    //     console.log(isResult);
+    // }, [resultTest]);
     function handle_ConfirmSubmit() {
         for (var i = 0; i < dataSource.data_choice.length; i++) {
             dataSource.data_choice[i] = JSON.stringify(
@@ -40,15 +48,18 @@ const Modalconfirm = ({ dataSource, handleCheckSubmit }) => {
                     total_question: result.totalQuestion,
                     plan_id: Number(planTest_id),
                     user_id: data_user.id,
-                    result_test: "1",
+                    result_test: String(
+                        (result.correct / result.totalQuestion) * 100 >= 95
+                    ),
                 };
                 console.log(body);
                 dispatch(postPlanResultTest(body));
             })
             .catch((reason) => {
-                Message.error("Có lỗi xảy ra");
+                // Message.error("Có lỗi xảy ra");
             });
     }
+
     return (
         <div>
             <Button className="Submit_BTN" type="primary" onClick={showModal}>
