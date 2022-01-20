@@ -19,6 +19,8 @@ class CreateTestPlansTable extends Migration
             $table->string('schedule');
             $table->date('test_date');
             $table->boolean('status');
+            $table->bigInteger('number_question');
+            $table->bigInteger('number_question_pass');
             $table->timestamps();
         });
     }

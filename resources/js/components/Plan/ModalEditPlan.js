@@ -1,5 +1,6 @@
 import React,{useEffect} from "react";
-import { Form, Input, Row, Col, Modal, Select, DatePicker } from "antd";
+import { Form, Input, Row, Col, Modal, Select, DatePicker ,InputNumber} from "antd";
+import './index.css'
 const { Option } = Select;
 var moment = require('moment'); 
 const ModalEditPlan = ({
@@ -7,17 +8,15 @@ const ModalEditPlan = ({
     handleSubmit,
     handleCancel,
     isModalVisible,
-    testList,
     dataEdit
 }) => {
-    console.log(testList);
     useEffect(() => { 
         form.setFieldsValue({
-            title: dataEdit.title,
-            schedule:dataEdit.schedule,
-            test_date:moment(moment(dataEdit.test_date).format("YYYY/MM/DD")),
-            test_id:dataEdit.test_id
-
+            titleEdit: dataEdit.title,
+            scheduleEdit:dataEdit.schedule,
+            test_dateEdit:moment(moment(dataEdit.test_date).format("YYYY/MM/DD")),
+            number_questionEdit:dataEdit.number_question,
+            number_question_passEdit:dataEdit.number_question_pass,
         });
     });
     return (
@@ -27,6 +26,10 @@ const ModalEditPlan = ({
                 visible={isModalVisible}
                 onOk={handleSubmit}
                 onCancel={handleCancel}
+                footer={[
+                    <button className="plan_btnCancel" key="back" onClick={handleCancel}>Hủy</button>,
+                    <button className="plan_btnSubmit" key="submit"  onClick={handleSubmit}>Sửa</button>,
+                  ]}
             >
                 <Form
                     form={form}
@@ -38,7 +41,7 @@ const ModalEditPlan = ({
                     <Row>
                         <Col xs={{ span: 12 }}>
                             <Form.Item
-                                name="title"
+                                name="titleEdit"
                                 id="title"
                                 label="Tiêu đề:"
                                 rules={[
@@ -48,12 +51,12 @@ const ModalEditPlan = ({
                                     },
                                 ]}
                             >
-                                <Input />
+                                 <Input className="input_title"/>
                             </Form.Item>
                         </Col>
                         <Col xs={{ span: 12 }}>
                             <Form.Item
-                                name="schedule"
+                                name="scheduleEdit"
                                 label="Lịch trình"
                                 rules={[
                                     {
@@ -62,14 +65,14 @@ const ModalEditPlan = ({
                                     },
                                 ]}
                             >
-                                <Input />
+                                <Input className="input_schedule"/>
                             </Form.Item>
                         </Col>
 
                         <Col xs={{ span: 12 }}>
                             <Form.Item
                                 label="Ngày kiểm tra"
-                                name="test_date"
+                                name="test_dateEdit"
                                 rules={[
                                     {
                                         required: true,
@@ -77,36 +80,35 @@ const ModalEditPlan = ({
                                     },
                                 ]}
                             >
-                                <DatePicker />
+                                <DatePicker className="input_DatePicker"/>
                             </Form.Item>
                         </Col>
                         <Col xs={{ span: 12 }}>
                             <Form.Item
-                                label="Mã bài kiểm tra"
-                                name="test_id"
+                                label="Số câu hỏi"
+                                name="number_questionEdit"
                                 rules={[
                                     {
                                         required: true,
-                                        message: "Please select mã",
+                                        message: "Please input number question",
                                     },
                                 ]}
                             >
-                                <Select
-                                    style={{ width: 162 }}
-                                    onSelect={onselect}
-                                >
-                                    {testList?.length > 0 &&
-                                        testList?.map((list) => {
-                                            return (
-                                                <Option
-                                                    value={list.id}
-                                                    key={list.id}
-                                                >
-                                                    {list.id}
-                                                </Option>
-                                            );
-                                        })}
-                                </Select>
+                                 <InputNumber className="input_numberQuestion" min={0} />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={{ span: 12 }}>
+                            <Form.Item
+                                label="Số câu điều kiện vượt qua"
+                                name="number_question_passEdit"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Please input number question",
+                                    },
+                                ]}
+                            >
+                                 <InputNumber className="input_numberQuestion" min={0} />
                             </Form.Item>
                         </Col>
                     </Row>

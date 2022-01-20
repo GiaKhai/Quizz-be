@@ -1,0 +1,28 @@
+.input_numberQuestion,.input_DatePicker,.select_status,.input_schedule,.input_title{
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.plan_btnCancel,.plan_btnSubmit{
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    align-items: center !important;
+    border: none;
+    border-radius: 3px;
+    margin-right: 5px;
+    width: 75px;
+    transition: 0.4s;
+    cursor: pointer;
+}
+.plan_btnSubmit{
+    background-color: #d9363e;
+    color: white;
+}
+.plan_btnCancel{
+    background-color: #d9d9d9;
+    transition: 0.4s;
+}
+.plan_btnCancel:hover,.plan_btnSubmit:hover{
+    background-color: #096dd9;
+    transition: 0.4s;
+}

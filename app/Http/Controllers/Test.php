@@ -13,11 +13,16 @@ class Test extends Controller
 {
     public function getPlanList() 
     {
-        $plan = new TestPlan();
-        $list = $plan->getPlan();    
+        $list  = TestPlan::all();
         return response()->json($list, 200);
     }
-
+    public function  getPlanListPublist() 
+    {
+        $plan = new TestPlan();
+        $list = $plan->getPlanPublic();    
+        return response()->json($list, 200);
+    }
+   
     public function getTestList() 
     {  
         $list = TestList::all();
@@ -43,7 +48,7 @@ class Test extends Controller
     
     public function postTestPlan(Request $request) 
     {
-        Log::info($request);
+        // Log::info($request);
         return TestPlan::create($request->all());
     }
 
@@ -59,8 +64,9 @@ class Test extends Controller
         $plan = TestPlan::find($id);
         $plan->title = $request->title;
         $plan->schedule = $request->schedule;
-        $plan->test_id = $request->test_id;
         $plan->test_date = $request->test_date;
+        $plan->number_question = $request->number_question;
+        $plan->number_question_pass = $request->number_question_pass;
         $plan->save();
         $list = TestPlan::all();
         return response()->json($list, 200);
@@ -85,44 +91,48 @@ class Test extends Controller
             ]);
         }
     }
-
+    //////
     public function resultTest(Request $request)
     {
         $user_id= $request->id_user;
+        $plan_id= $request->planTest_id;
+        $plan = TestPlan::find($plan_id);
+        $conditionPass =  $plan->number_question_pass;
         $data =$request->data_choice;
-        $passCondition = 95;
         $checkCorrect = 0;
         $resultTest = false;
         for ($i = 0; $i < count($data); $i++) {
-            $data_test =json_decode($data[$i]);
-            // $id_question = $data_test->id_question;
+            $data_test =json_decode($data[$i]); 
             $choices = $data_test->user_choice;
-            $numberCorrect = 0;
+            $questionID =$data_test->id_question;
+            $countCorrectOfQuestion = Answer::where('question_id', $questionID)
+                                              ->Where('correct',1)
+                                              ->count();
+            
+            $numberCorrectEachQuestion =0;
             if(count($choices) > 0){
                 for ($j = 0; $j < count($choices); $j++) {
                     $id_answer_choice = $choices[$j];
                     $answer = Answer::find($id_answer_choice);
                     $correct = $answer['correct'];
                     if($correct == 1 ){
-                        $numberCorrect=$numberCorrect+1;
+                        $numberCorrectEachQuestion= $numberCorrectEachQuestion+1;
                     }
-                }
-                if($numberCorrect == count($choices))
-                {
-                    $checkCorrect =$checkCorrect+1;
-                }  
+                    if($numberCorrectEachQuestion == $countCorrectOfQuestion )
+                    {
+                        $checkCorrect =  $checkCorrect+1;
+                    }
+                } 
             }   
         }
-        $percentCorrect = ($checkCorrect*100)/count($data);
-        if($percentCorrect >= $passCondition)
-        {
+        
+        if($checkCorrect >= $conditionPass ){
             $resultTest=true;
         }
-
         return response()->json([
             'correct' => $checkCorrect ,
             'totalQuestion'=> count($data),
-            'resultTest'=>$resultTest
+            'resultTest'=>$resultTest,
         ]);
     }
     

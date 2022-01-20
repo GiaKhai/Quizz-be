@@ -10,6 +10,24 @@ import EditUser from "../../containers/EditUser";
 
 const { confirm } = Modal;
 
+function showConfirm(id) {
+    confirm({
+        title: "Bạn có muốn xóa?",
+        icon: <ExclamationCircleOutlined />,
+        async onOk() {
+            const res = await axios.delete(`${userURL}/${id}`);
+            if (res.status === 200) {
+                Message.success("Xóa thành công");
+                dispatch(getUserAction());
+            }
+        },
+        onCancel() {
+            console.log("Cancel");
+        },
+        okText:"Có",
+        cancelText:"Không"
+    });
+}
 
 
 
@@ -23,7 +41,8 @@ const User = ({ userList }) => {
 
     const [data, setData] = useState();
     const [isModalVisible, setIsModalVisible] = useState(false);
-
+    const [isModalVisibleEdit, setIsModalVisibleEdit] = useState(false);
+    const [dataEdit,setDataEdit]=useState({})
     useEffect(() => {
         setData(userList);
     }, [userList]);
@@ -35,37 +54,15 @@ const User = ({ userList }) => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-    
     //handle show modal Edit
     const showModalEdit = (record) => {
         setIsModalVisibleEdit(true);
         setDataEdit(record)
     };
-    //handle cancel modal Edit
-    const handleCancelEdit = () => {
+     //handle cancel modal Edit
+     const handleCancelEdit = () => {
         setIsModalVisibleEdit(false);
     };
-    //handle change when change pagination
-    function onChangePagination(currentPageData){
-        setCurrentPage(currentPageData.current)
-    }
-    function showConfirm(id) {
-        confirm({
-            title: "Bạn có muốn xóa?",
-            icon: <ExclamationCircleOutlined />,
-            async onOk() {
-                const res = await axios.delete(`${userURL}/${id}`);
-                if (res.status === 200) {
-                    Message.success("Xóa thành công");
-                    dispatch(getUserAction());
-                }
-            },
-            onCancel() {
-                console.log("Cancel");
-            },
-        });
-    }
-    
     const columns = [
         {
             title: "STT",
@@ -73,23 +70,12 @@ const User = ({ userList }) => {
             key: "id",
             align: "center",
             width: 120,
-            render: (index, record,stt) =>{
-                var index =pageSize*(currentPage-1) + (stt+1)
-                return <p>{index}</p>
-            }
         },
         {
             title: "Tên",
             dataIndex: "name",
             key: "name",
             align: "center",
-        },
-        {
-            title: "ID người dùng",
-            dataIndex: "id",
-            key: "id",
-            align: "center",
-            width: 120,
         },
         {
             title: "Email",
@@ -112,13 +98,12 @@ const User = ({ userList }) => {
                         <Button danger onClick={() => showConfirm(record.id)}>
                             Xóa
                         </Button>
-                        <Button
-                         onClick={()=>showModalEdit(record)}
-                        >
+                        <Button onClick={()=>showModalEdit(record)} >
                             Sửa
                         </Button>
                     </div>
-                  
+                   
+                    
                 );
             },
             align: "center",
@@ -151,7 +136,6 @@ const User = ({ userList }) => {
                 form={form}
                 dataEdit={dataEdit}
             />
-
             <Table columns={columns} dataSource={data} onChange={(pagination, filters, sorter, currentPageData) =>onChangePagination(pagination)}/>
         </div>
     );

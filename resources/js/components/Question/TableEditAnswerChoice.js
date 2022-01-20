@@ -6,12 +6,12 @@ import { getInfoQuestion } from "../../../actions/question.action";
 import { useDispatch, useSelector } from "react-redux";
 
 const { TextArea } = Input;
-const Tableanswerchoice = ({handleChangeAnswerOption}) => {
-
+const TableEditAnswerchoice = ({handleChangeAnswerOption,arrAnswerOption}) => {
+    console.log("arrAnswerOption:",arrAnswerOption)
     const dispatch = useDispatch();
     const info_question = useSelector((state) => state.inFoQuestionReducer.info_question)
     let dataSourceInit = info_question.answer_choices
-    const [dataSource, handleChange_DataSource] = useState(dataSourceInit);
+    const [dataSource, handleChange_DataSource] = useState(arrAnswerOption);
 
     //handle change content
     function handleChangeContent(e,record){
@@ -27,7 +27,6 @@ const Tableanswerchoice = ({handleChangeAnswerOption}) => {
         let new_info={...info_question}
         new_info.answer_choices=newArr
         handleChangeAnswerOption(newArr)
-        // dispatch(getInfoQuestion(new_info))
         handleChange_DataSource(newArr);
     }
     const columns = [
@@ -55,20 +54,19 @@ const Tableanswerchoice = ({handleChangeAnswerOption}) => {
               }
         },
     ];
+    useEffect(() => { 
+        handleChange_DataSource(arrAnswerOption)
+    },[arrAnswerOption])
     return (
         <div>
             <Table  
                 columns={columns} 
-                dataSource={dataSource} 
-                pagination={false}
+                dataSource={dataSource}
+                pagination={false} 
             />
             
         </div>
     );
 };
 
-
-
-
-
-export default Tableanswerchoice;
+export default TableEditAnswerchoice;

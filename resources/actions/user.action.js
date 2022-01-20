@@ -41,11 +41,20 @@ export const postUserAction = async (body) => {
     }
 };
 
-export const updateUserAction = async (id,body) => {
+/**
+ * Update user
+ * @param {*} body 
+ * @param {*} id 
+ * @returns 
+ */
+export const updateUserAction = async (body,id) => {
+    console.log("body:",body)
+    console.log("id:",id)
     try {
         const result = await axios.put(`${userURL}/${id}`, body);
+        console.log("result:",result)
         if (result.status === 200) {
-            Message.success("Add success");
+            Message.success("Edit success");
             return { success: true };
         }
     } catch (error) {

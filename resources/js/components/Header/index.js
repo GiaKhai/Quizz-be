@@ -1,17 +1,17 @@
-import React,{ useState } from "react";
+import React,{ useState,useEffect } from "react";
 import "./header.css";
 import { Link } from "react-router-dom";
 import { MethodCommon } from '../../../common/MethodCommon'
 import {TOKEN_NAME,INFO_USER,REFRESH_TOKEN} from '../../../common/parameters'
 import { useHistory } from "react-router-dom";
+import { Menu, Dropdown} from 'antd';
 import Userdotest from "../../../containers/UserDoTest";
-
+import { UserOutlined } from '@ant-design/icons';
 const Header = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     let history = useHistory();
     let data_user =MethodCommon.getLocalStorage(INFO_USER)
     let user_role= data_user.role
-  
     function handleLogout(){
         let token_cookie=MethodCommon.getCookies(TOKEN_NAME)
         let data_request ={ token:token_cookie}
@@ -30,6 +30,13 @@ const Header = () => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+    const menuUser = (
+        <Menu>
+          <Menu.Item key="logout">
+            <p onClick={handleLogout}> Logout</p>
+          </Menu.Item>
+        </Menu>
+      );
     return (
         <header>
             <div id="brand">
@@ -53,14 +60,10 @@ const Header = () => {
                 <Link className="link" to="/question">
                     Câu hỏi
                 </Link>:''}
-                {user_role === 'Admin'? 
-                <Link className="link" to="/test-list">
-                    Bài kiểm tra
-                </Link>:''}
-                <div>
-                   { `Wellcome ${data_user.name}`}
-                   {data_user.name !== null ? <button onClick={handleLogout}>Logout</button> :''}
-                </div>
+
+                 <Dropdown className="userDropdown" overlay={menuUser} placement="bottomCenter">
+                            <p><UserOutlined className="iconUser"/> {data_user.name}</p>
+                </Dropdown>
                 <Userdotest
                     setIsModalVisible={setIsModalVisible}
                     isModalVisible={isModalVisible}

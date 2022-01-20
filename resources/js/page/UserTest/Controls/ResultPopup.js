@@ -1,7 +1,7 @@
 import React,{ useState,useEffect } from 'react';
 import { Button, Layout,Modal,Row, Col, Result } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
-
+import '../Css/index.css'
 const Resultpopup = ({}) => {
     const resultTest = useSelector((state) => state.resultTestReducers.resultTest);
     const [isModalVisible, setIsModalVisible] = useState(resultTest.isVisibleModal);
@@ -31,12 +31,12 @@ const Resultpopup = ({}) => {
             ]}
         >
             <div className="">
-                <p>{`số câu đúng ${resultTest.correct}/${resultTest.totalQuestion}` }</p> 
+                <p className="numberCorrect">{`số câu đúng ${resultTest.correct}/${resultTest.totalQuestion}` }</p> 
                 {
                     resultTest.resultTest ===false ?
-                    <p>Rất tiếc bạn chưa vượt qua được bài kiểm tra</p> 
+                    <p className="userfalseTest">Rất tiếc bạn chưa vượt qua được bài kiểm tra</p> 
                     :
-                    <p>Chúc mừng bạn vượt qua được bài kiểm tra !</p> 
+                    <p className="successTest">Chúc mừng bạn vượt qua được bài kiểm tra !</p> 
                 }
             </div>
     </Modal>

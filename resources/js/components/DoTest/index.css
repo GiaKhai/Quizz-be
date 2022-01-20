@@ -1,0 +1,19 @@
+.planlist_public_area{
+    width: 100%;
+
+}
+.Plan_Item{
+    width: 100px;
+    height: 100px;
+    background-color: #d9d9d9;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+}
+.Plan_Item:hover{
+    transition: 0.4s;
+    background-color: gray;
+}

@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Answer;
 
 
@@ -17,16 +20,16 @@ class Question extends Model
     {
         return $this->hasMany(Answer::class);
     }
-
+//////
     public function getListQuestion() 
     {
-        $ques =  Question::with('answers')->get();
-        return $ques;
+       
+        $queslist =  Question::with('answers')->get();
+        return $queslist;
     }
-    public function getListQuestionRandom() 
+    public function getListQuestionRandom($numberQuestion) 
     {
-        $numberRandom=20;
-        $ques = Question::inRandomOrder()->limit($numberRandom)->with('answers')->get();
+        $ques = Question::inRandomOrder()->limit($numberQuestion)->with('answers')->get();
         return $ques;
     }
     public function createData($data) 
@@ -37,4 +40,13 @@ class Question extends Model
         $ques->save();
         return $ques->id;
     }
+    public function updateData($data) 
+    {
+        $id_Question= $data->id;
+        $ques = Question::find($id_Question);
+        $ques->question = $data->content_question;
+        $ques->is_multiple = $data->isMultiple;
+        $ques->save();
+    }
+  
 }

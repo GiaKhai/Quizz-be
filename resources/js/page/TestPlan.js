@@ -1,7 +1,7 @@
 import React, { useState ,useEffect} from "react";
 import { UserAddOutlined } from "@ant-design/icons";
 import { Button, Table, Switch, message as Message,Modal } from "antd";
-import { getPlanAction } from "../../actions/testPlan.action";
+import { getPlanAction,getPlanActionPublic } from "../../actions/testPlan.action";
 import { testPlanURL } from "../../constants/backend_url";
 import AddPlan from "../../containers/AddPlan";
 import { useForm } from "antd/lib/form/Form";
@@ -50,6 +50,7 @@ function TestPlan({ planList, updateStatus }) {
                     if (res.status === 200) {
                         Message.success("Xóa thành công");
                         dispatch(getPlanAction());
+                        dispatch(getPlanActionPublic()); 
                     }
                 })
             },
@@ -91,11 +92,16 @@ function TestPlan({ planList, updateStatus }) {
             align: "center",
         },
         {
-            title: "Mã bài kiểm tra",
-            dataIndex: "test_id",
-            key: "test_id",
+            title: "Tổng số câu hỏi",
+            dataIndex: "number_question",
+            key: "number_question",
             align: "center",
-            width: 130,
+        },
+        {
+            title: "Số câu điều kiện vượt qua",
+            dataIndex: "number_question_pass",
+            key: "number_question_pass",
+            align: "center",
         },
         {
             key: "status",

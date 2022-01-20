@@ -1,21 +1,30 @@
-import React from "react";
-import { getUserAction, postUserAction,updateUserAction } from "../actions/user.action";
-import ModalAddUser from "../js/components/User/ModalAddUser";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { message as Message } from "antd";
-
-import { useDispatch } from "react-redux";
+import { updateUserAction,getUserAction } from "../actions/user.action";
 import ModalEditUser from "../js/components/User/ModalEditUser";
 
 const EditUser = ({ isModalVisible, handleCancel, form, setIsModalVisible,dataEdit }) => {
     const dispatch = useDispatch();
-    const handleSubmit = async () => {
+    useEffect(() => {
+        dispatch(getUserAction());
+    }, [dispatch])
+
+    const handleSubmit = async (test) => {
+        let id = dataEdit.id
         try {
             await form.validateFields();
-            let { name, email, role} = form.getFieldsValue();
-            let body = { name, email, role };
-            let id = dataEdit.id
-            const { success } = await updateUserAction(id,body);
-            if (success) {
+            let { nameEdit, roleEdit,emailEdit } =
+                form.getFieldsValue();
+            let body = {
+                name:nameEdit, 
+                role:roleEdit,
+                email:emailEdit
+            };
+            
+            const { success } = await updateUserAction(body,id);
+            
+            if (success ) {
                 form.resetFields();
                 dispatch(getUserAction());
                 setIsModalVisible(false);
@@ -24,11 +33,12 @@ const EditUser = ({ isModalVisible, handleCancel, form, setIsModalVisible,dataEd
     };
 
     return (
+
         <ModalEditUser
-            form={form}
             handleSubmit={handleSubmit}
             isModalVisible={isModalVisible}
             handleCancel={handleCancel}
+            form={form}
             dataEdit={dataEdit}
         />
     );
