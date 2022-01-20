@@ -1,16 +1,16 @@
 import React,{ useState,useEffect } from "react";
 import { Form, Input, Row, Col, Modal, Select } from "antd";
 const { Option } = Select;
-
+import './index.css'
 const ModalEditUser = ({ form, handleSubmit, handleCancel, isModalVisible ,dataEdit}) => {
 
     const [dataModalEdit,setModalDataEdit]=useState({})
     useEffect(() => { 
         setModalDataEdit(dataEdit)
         form.setFieldsValue({
-            name: dataEdit.name,
-            email: dataEdit.email,
-            role: dataEdit.role,
+            nameEdit: dataEdit.name,
+            emailEdit: dataEdit.email,
+            roleEdit: dataEdit.role,
         });
     })
     return (
@@ -20,6 +20,10 @@ const ModalEditUser = ({ form, handleSubmit, handleCancel, isModalVisible ,dataE
                 visible={isModalVisible}
                 onOk={handleSubmit}
                 onCancel={handleCancel}
+                footer={[
+                    <button className="user_btnCancel" key="back" onClick={handleCancel}>Hủy</button>,
+                    <button className="user_btnSubmit" key="submit"  onClick={handleSubmit}>Sửa</button>,
+                  ]}
             >
                 <Form
                     form={form}
@@ -31,7 +35,7 @@ const ModalEditUser = ({ form, handleSubmit, handleCancel, isModalVisible ,dataE
                     <Row>
                         <Col xs={{ span: 12 }}>
                             <Form.Item
-                                name="name"
+                                name="nameEdit"
                                 id="name"
                                 label="Tên:"
                                 rules={[
@@ -46,7 +50,7 @@ const ModalEditUser = ({ form, handleSubmit, handleCancel, isModalVisible ,dataE
                         </Col>
                         <Col xs={{ span: 12 }}>
                             <Form.Item
-                                name="email"
+                                name="emailEdit"
                                 label="Email"
                                 rules={[
                                     {
@@ -62,7 +66,7 @@ const ModalEditUser = ({ form, handleSubmit, handleCancel, isModalVisible ,dataE
 
                         <Col xs={{ span: 12 }}>
                             <Form.Item
-                                name="role"
+                                name="roleEdit"
                                 label="Quyền:"
                                 rules={[
                                     {

@@ -16,7 +16,6 @@ function showConfirm(id) {
         icon: <ExclamationCircleOutlined />,
         async onOk() {
             const res = await axios.delete(`${userURL}/${id}`);
-            console.log(res.status);
             if (res.status === 200) {
                 Message.success("Xóa thành công");
                 dispatch(getUserAction());
@@ -25,6 +24,8 @@ function showConfirm(id) {
         onCancel() {
             console.log("Cancel");
         },
+        okText:"Có",
+        cancelText:"Không"
     });
 }
 

@@ -17,7 +17,11 @@ const planReducers = (state = initialState, action) => {
             return {
                 ...state,
             };
-
+        case testPlanConstants.GET_PLAN_PUBLIC:
+            return {
+                    ...state,
+                    planListPublic: data.data,
+            };
         default:
             return state;
     }

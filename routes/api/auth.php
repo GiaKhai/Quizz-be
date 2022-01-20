@@ -48,7 +48,7 @@ Route::prefix('user')->name('users.')->group(function () {
     Route::put('/{id}', [UserController::class, 'updateUser']);
 });
 
-Route::get('question', [QuestionController::class,'getQuestion']);
+Route::post('question', [QuestionController::class,'getQuestion']);
 Route::post('create_question', [QuestionController::class,'createQuestion']);
 Route::delete('delete_question/{id}', [QuestionController::class,'deleteQuestion']);
 Route::put('update_question', [QuestionController::class,'updateQuestion']);

@@ -14,10 +14,12 @@ const EditUser = ({ isModalVisible, handleCancel, form, setIsModalVisible,dataEd
         let id = dataEdit.id
         try {
             await form.validateFields();
-            let { name, role,email } =
+            let { nameEdit, roleEdit,emailEdit } =
                 form.getFieldsValue();
             let body = {
-                name, role,email
+                name:nameEdit, 
+                role:roleEdit,
+                email:emailEdit
             };
             
             const { success } = await updateUserAction(body,id);

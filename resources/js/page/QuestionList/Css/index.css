@@ -21,3 +21,6 @@ background-color: #f16037;
     background-color: #096dd9;
     transition: 0.4s;
 }
+.question_pagination_area{
+    width: 100%;
+}

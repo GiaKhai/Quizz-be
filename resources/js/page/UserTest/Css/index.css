@@ -84,3 +84,20 @@
     border-radius: 3px;
     cursor: pointer;
 }
+.successTest{
+    color: green;
+    font-size: 20px;
+}
+.userfalseTest{
+    color: red;
+    font-size: 20px;
+}
+.numberCorrect{
+    font-weight: bold;
+    font-size: 22px;
+}
+.do_you_want_to_submit{
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+}

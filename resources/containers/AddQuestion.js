@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Modaladdquestion from "../js/components/Question/ModalAddQuestion";
-import { Form, Input, Row, Col, Modal, Select, DatePicker,Button} from "antd";
-import { sendInfoQuestion_Toserver } from "../actions/question.action";
-import { getQuestionAction } from "../actions/question.action";
+import { Form} from "antd";
+import { sendInfoQuestion_Toserver,getQuestionSuccess } from "../actions/question.action";
 import { init_info_question } from '../js/components/Question/initModel';
 import { getInfoQuestion } from "../actions/question.action";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { Service  } from '../js/page/QuestionList/Services/Services';
 
-const Addquestion = ({ isModalVisible, handleCancel, setIsModalVisible }) => {
+const Addquestion = ({ isModalVisible, handleCancel, setIsModalVisible,pagination }) => {
     const [form] = Form.useForm();
     const dispatch = useDispatch();
     const handleSubmit = async (data) => {
@@ -16,8 +16,14 @@ const Addquestion = ({ isModalVisible, handleCancel, setIsModalVisible }) => {
             if (success === true) {
                 form.resetFields();
                 dispatch(getInfoQuestion(init_info_question))
-                dispatch(getQuestionAction());
                 setIsModalVisible(false);
+                let body={
+                    currentPage:pagination.currentPage,
+                    perPage: pagination.perPage
+                }
+                Service.loadingQuestion(body).then((response)=>{
+                    dispatch(getQuestionSuccess(response));
+                })
             } else Message.error("Add error");
         } catch (error) {}
         
@@ -29,7 +35,6 @@ const Addquestion = ({ isModalVisible, handleCancel, setIsModalVisible }) => {
             isModalVisible={isModalVisible}
             handleCancel={handleCancel}
             form={form}
-
        />
     );
 };

@@ -22,3 +22,7 @@ export const init_info_question = {
     isMultiple:0,
     answer_correct:[]
 }
+export const init_pagination = {
+    currentPage :1,
+    perPage :10,
+}

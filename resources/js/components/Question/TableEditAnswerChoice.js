@@ -61,7 +61,8 @@ const TableEditAnswerchoice = ({handleChangeAnswerOption,arrAnswerOption}) => {
         <div>
             <Table  
                 columns={columns} 
-                dataSource={dataSource} 
+                dataSource={dataSource}
+                pagination={false} 
             />
             
         </div>

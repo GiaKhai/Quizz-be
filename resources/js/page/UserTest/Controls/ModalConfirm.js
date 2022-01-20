@@ -5,7 +5,7 @@ import { message as Message } from "antd";
 import {  getResultTestUer } from "../../../../actions/getResultTest.action";
 import { useDispatch} from "react-redux";
 import '../Css/index.css'
-const Modalconfirm = ({dataSource,handleCheckSubmit}) => {
+const Modalconfirm = ({dataSource,handleCheckSubmit,planTest_id}) => {
     const dispatch = useDispatch();
     const [isModalVisible, setIsModalVisible] = useState(false);
     const showModal = () => { 
@@ -21,7 +21,7 @@ const Modalconfirm = ({dataSource,handleCheckSubmit}) => {
         {
             clone_dataSource.data_choice[i]=JSON.stringify(clone_dataSource.data_choice[i])
         }
-
+        clone_dataSource.planTest_id=planTest_id
         Service.checkResultTest(clone_dataSource).then((res)=>{
             var result = res.data
             result.isVisibleModal=true,
@@ -42,7 +42,7 @@ const Modalconfirm = ({dataSource,handleCheckSubmit}) => {
                 footer={null}
             >
                 <div className="Confirm_area">
-                    <p>Bạn muốn nộp bài ?</p> 
+                    <p className="do_you_want_to_submit">Bạn muốn nộp bài ?</p> 
                     <div className="comfirm_action_button_area">
                         <div className="confirmArea">
                             <Button onClick ={handleCancel} className="CloseConfirm_button" type="primary">Hủy</Button>

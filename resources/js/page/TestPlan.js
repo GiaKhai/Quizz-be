@@ -1,7 +1,7 @@
 import React, { useState ,useEffect} from "react";
 import { UserAddOutlined } from "@ant-design/icons";
 import { Button, Table, Switch, message as Message,Modal } from "antd";
-import { getPlanAction } from "../../actions/testPlan.action";
+import { getPlanAction,getPlanActionPublic } from "../../actions/testPlan.action";
 import { testPlanURL } from "../../constants/backend_url";
 import AddPlan from "../../containers/AddPlan";
 import { useForm } from "antd/lib/form/Form";
@@ -11,7 +11,6 @@ const { confirm } = Modal;
 function TestPlan({ planList, updateStatus }) {
     const dispatch = useDispatch();
     const testPlan = useSelector((state) => state.planReducers.planList);
-    console.log("testPlan:",testPlan)
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalVisibleEdit, setIsModalVisibleEdit] = useState(false);
     const [pageSize, setPageSize] = useState(10);
@@ -51,6 +50,7 @@ function TestPlan({ planList, updateStatus }) {
                     if (res.status === 200) {
                         Message.success("Xóa thành công");
                         dispatch(getPlanAction());
+                        dispatch(getPlanActionPublic()); 
                     }
                 })
             },

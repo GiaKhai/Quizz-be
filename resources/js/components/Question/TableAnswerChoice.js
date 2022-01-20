@@ -55,15 +55,12 @@ const Tableanswerchoice = ({handleChangeAnswerOption}) => {
               }
         },
     ];
-    // useEffect(() => { 
-    //     let dataSourceInit = info_question.answer_choices
-    //     handleChange_DataSource(dataSourceInit)
-    // })
     return (
         <div>
             <Table  
                 columns={columns} 
                 dataSource={dataSource} 
+                pagination={false}
             />
             
         </div>

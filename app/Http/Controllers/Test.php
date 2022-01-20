@@ -91,17 +91,24 @@ class Test extends Controller
             ]);
         }
     }
-
+    //////
     public function resultTest(Request $request)
     {
         $user_id= $request->id_user;
+        $plan_id= $request->planTest_id;
+        $plan = TestPlan::find($plan_id);
+        $conditionPass =  $plan->number_question_pass;
         $data =$request->data_choice;
-        $passCondition = 95;
         $checkCorrect = 0;
         $resultTest = false;
         for ($i = 0; $i < count($data); $i++) {
-            $data_test =json_decode($data[$i]);
+            $data_test =json_decode($data[$i]); 
             $choices = $data_test->user_choice;
+            $questionID =$data_test->id_question;
+            $countCorrectOfQuestion = Answer::where('question_id', $questionID)
+                                              ->Where('correct',1)
+                                              ->count();
+            
             $numberCorrectEachQuestion =0;
             if(count($choices) > 0){
                 for ($j = 0; $j < count($choices); $j++) {
@@ -111,7 +118,7 @@ class Test extends Controller
                     if($correct == 1 ){
                         $numberCorrectEachQuestion= $numberCorrectEachQuestion+1;
                     }
-                    if($numberCorrectEachQuestion == count($choices) )
+                    if($numberCorrectEachQuestion == $countCorrectOfQuestion )
                     {
                         $checkCorrect =  $checkCorrect+1;
                     }
@@ -119,16 +126,13 @@ class Test extends Controller
             }   
         }
         
-        $percentCorrect = ($checkCorrect*100)/count($data);
-        if($percentCorrect >= $passCondition)
-        {
+        if($checkCorrect >= $conditionPass ){
             $resultTest=true;
         }
-
         return response()->json([
             'correct' => $checkCorrect ,
             'totalQuestion'=> count($data),
-            'resultTest'=>$resultTest
+            'resultTest'=>$resultTest,
         ]);
     }
     

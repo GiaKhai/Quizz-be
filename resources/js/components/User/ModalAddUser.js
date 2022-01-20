@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Input, Row, Col, Modal, Select } from "antd";
 const { Option } = Select;
-
+import './index.css'
 const ModalAddUser = ({ form, handleSubmit, handleCancel, isModalVisible }) => {
     return (
         <div>
@@ -10,6 +10,10 @@ const ModalAddUser = ({ form, handleSubmit, handleCancel, isModalVisible }) => {
                 visible={isModalVisible}
                 onOk={handleSubmit}
                 onCancel={handleCancel}
+                footer={[
+                    <button className="user_btnCancel" key="back" onClick={handleCancel}>Hủy</button>,
+                    <button className="user_btnSubmit" key="submit"  onClick={handleSubmit}>Sửa</button>,
+                  ]}
             >
                 <Form
                     form={form}

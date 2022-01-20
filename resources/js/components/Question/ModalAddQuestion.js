@@ -1,4 +1,4 @@
-import React,{ useState ,useEffect}  from 'react';
+import React,{ useState}  from 'react';
 import { Form, Input, Row, Col, Modal, Select, DatePicker,Button} from "antd";
 import Tableanswerchoice from './TableAnswerChoice';
 import Selectcorrectanswer from './SelectCorrectAnswer';
@@ -12,13 +12,12 @@ const Modaladdquestion = ({
     handleSubmit,
     handleCancel,
     isModalVisible,
-    form
+    form,
 }) => {
     const dispatch = useDispatch();
     const info_question = useSelector((state) => state.inFoQuestionReducer.info_question)
     const [statusMultiple ,setStatusMultiple] =useState(info_question.isMultiple)
     const [dataSubmit,setDataSubmit]=useState({...info_question})
-
     //handle change content of question
     function handleChangeContentQuestion(e){ 
         let new_info={...info_question}

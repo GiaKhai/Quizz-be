@@ -11,11 +11,11 @@ import Resultpopup from './Controls/ResultPopup';
 import { useHistory } from "react-router-dom";
 import './Css/index.css'
 import CheckBoxButton from './Controls/CheckBox_button';
-
+import { useParams } from "react-router-dom";
 const { Title } = Typography;
 
 const Usertest = ({props}) => {
-
+    const {planTest_id} = useParams();
     let history = useHistory();
     let data_user = MethodCommon.getLocalStorage(INFO_USER)
     const [allData, setAllData]= useState([])
@@ -29,9 +29,11 @@ const Usertest = ({props}) => {
     let initData ={...dataSubmit}
     initData.id_user = data_user.id
     const [stateDataSubmit, setStateDataSubmit]=useState(initData)
-
+    let body={
+        planTest_id:Number(planTest_id)
+    }
     useEffect(() => {
-        axios.post(loadingQuestionTest, {}).then((res)=>{
+        axios.post(loadingQuestionTest, body).then((res)=>{
             let dataRes = res.data
            
             for(var i=0;i<dataRes.length;i++)
@@ -160,7 +162,6 @@ const Usertest = ({props}) => {
     }
     //go to question clicked
     let handle_GotoQuestion=(id,index)=>{
-        console.log("index:",index)
         let newSkip = LIMITE_PAGE;
         var newArray = [...allData];
         var item_found=false;
@@ -284,6 +285,7 @@ const Usertest = ({props}) => {
                 <Modalconfirm
                     dataSource={stateDataSubmit}
                     handleCheckSubmit={handleCheckSubmit}
+                    planTest_id={Number(planTest_id)}
                 />
                 </div>
             </div>

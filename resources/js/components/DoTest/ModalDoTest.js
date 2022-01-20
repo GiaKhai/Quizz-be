@@ -14,11 +14,9 @@ const ModalDoTest = ({
     form
 }) => {
     let history = useHistory();
-    // history.push("/login")
     const dispatch = useDispatch();
-    const planList = useSelector((state) => state.planReducers.planList);
-    // history.push(`/do_test/${planTest_id}`)
-    console.log("planList:",planList)
+    const planList = useSelector((state) => state.planReducers.planListPublic);
+
     const handeGotoTestPage=(id)=>{
         history.push(`/do_test/${id}`)
     }

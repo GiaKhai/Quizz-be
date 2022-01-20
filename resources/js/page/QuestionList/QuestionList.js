@@ -10,17 +10,62 @@ import { useForm } from "antd/lib/form/Form";
 import { message as Message } from "antd";
 import Editquestion from "../../../containers/EditQuestion";
 import { getInfoQuestion } from "../../../actions/question.action";
-import { init_info_question } from './Model/Model';
+import { init_info_question,init_pagination } from './Model/Model';
+import Questionlistpagination from "./Controls/QuestionListPagination";
+import { Service  } from './Services/Services';
+import axios from "axios";
 const { Title } = Typography;
 const { confirm } = Modal;
 function QuestionList({  }) {
-    const [form] = useForm();
     const dispatch = useDispatch();
-    const [value, setValue] = useState(1);
-    const questionList = useSelector((state) => state.questionReducers.questionList);
+    const data = useSelector((state) => state.questionReducers.questionList);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isModalVisibleEdit, setIsModalVisibleEdit] = useState(false);
+    const [pagination, setPagination] =useState(init_pagination);
+    const [questionList,setQuestionList]=useState(data);
+    const [totalPage,setTotaPage]=useState(0);
+    const [pageSize,setpageSize]=useState(10);
    
+    function CallAPI(body){
+        Service.loadingQuestion(body).then((response)=>{
+            let result =response.data
+            setQuestionList(result.data)
+            setTotaPage(result.totalPage)
+        })
+    }
+
+    useEffect(() => { 
+        let body={
+            currentPage:pagination.currentPage,
+            perPage: pagination.perPage
+        }
+        CallAPI(body)
+    },[data]);
+
+    //handle change pagezie
+    const handleChangePageSize=(value)=>{
+        let body={
+            currentPage:pagination.currentPage,
+            perPage: value
+        }
+        setPagination(body)
+        setpageSize(value)
+        CallAPI(body)
+    }
+
+    //handle change pagezie
+    const handleChangePageCurrent=(value)=>{
+        let body={
+            currentPage:value,
+            perPage: pagination.perPage
+        }
+        setPagination(body)
+        Service.loadingQuestion(body).then((response)=>{
+            let result =response.data
+            setQuestionList(result.data)
+            setTotaPage(result.totalPage)
+        })
+    }
     //handle show modal Add
     const showModal = () => {
         setIsModalVisible(true);
@@ -29,7 +74,7 @@ function QuestionList({  }) {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-      //handle show modal Edit
+    //handle show modal Edit
     const showModalEdit = (record) => {
         let clone_model = {...init_info_question}
         clone_model.id=record.id
@@ -52,10 +97,8 @@ function QuestionList({  }) {
         }
         clone_model.answer_choices=newAnswerOption
         clone_model.answer_correct=newArrCorrectAnswer
-        console.log("clone_model:",clone_model)
         dispatch(getInfoQuestion(clone_model))
         setIsModalVisibleEdit(true);
-        // setDataEdit(record)
     };
     //handle cancel modal Edit
     const handleCancelEdit = () => {
@@ -63,14 +106,17 @@ function QuestionList({  }) {
     };
     //handle delete data
     const handleDeleteData=(id)=>{
-        console.log("xóa")
         confirm({
             content:"Bạn muốn xóa",
             onOk() {
                 axios.delete( `${deleteQuestion}/${id}`).then((res)=>{
                      if (res.status === 200) {
                         Message.success("Xóa dữ liệu thành công");
-                        dispatch(getQuestionAction());
+                        let body={
+                            currentPage:pagination.currentPage,
+                            perPage: pagination.perPage
+                        }
+                        CallAPI(body)
                     }
                 })   
             },
@@ -80,9 +126,7 @@ function QuestionList({  }) {
             cancelText:"Không"
         })
     }
-    // useEffect(() => { 
-    //     console.log(" questionList:", questionList)
-    // });
+   
     return (
         <div className="content-page">
             <div className="title">Câu hỏi</div>
@@ -99,7 +143,7 @@ function QuestionList({  }) {
             {questionList?.map((ques, index) => (
                 <div key={index} className="question">
                     <Title level={4}>
-                        {index + 1}/ {ques.question}
+                        <p>{ques.index} / {ques.question}</p>
                     </Title>
                     <div className="answers">
                         {ques.is_multiple === 1 ?
@@ -152,12 +196,23 @@ function QuestionList({  }) {
                 setIsModalVisible={setIsModalVisible}
                 isModalVisible={isModalVisible}
                 handleCancel={handleCancel}
+                pagination={pagination}
             />
             <Editquestion
                 setIsModalVisible={setIsModalVisibleEdit}
                 isModalVisible={isModalVisibleEdit}
                 handleCancel={handleCancelEdit}
+                pagination={pagination}
             />
+            <div className="question_pagination_area">
+                <Questionlistpagination
+                handleChangePageSize={handleChangePageSize}
+                handleChangePageCurrent={handleChangePageCurrent}
+                totalPage={totalPage}
+                pageSize={pageSize}
+                />
+            </div>
+          
         </div>
     );
 }

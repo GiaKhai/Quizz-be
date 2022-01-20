@@ -28,15 +28,6 @@ const Selectmultiple = () => {
             description:"Không"
         },
     ]
-    // function handleChange(value) {
-    //     let new_info={...info_question}
-    //     new_info.isMultiple= value
-    //     dispatch(getInfoQuestion(new_info))
-    // }
-    // useEffect(() => { 
-    //     let initDefaultValue=info_question.isMultiple
-    //     setStatus(initDefaultValue)
-    // })
     return (
         <Form.Item
             name="isMutiple"
@@ -47,7 +38,6 @@ const Selectmultiple = () => {
                 className="SelectMutilple_question"
                 defaultValue={status}
                 disabled={false}
-                // onChange={()=>handleChange()}
             >
                 {choices?.map((item,index) => (
                         <Option key={index} value={item.status}>{item.description}</Option>

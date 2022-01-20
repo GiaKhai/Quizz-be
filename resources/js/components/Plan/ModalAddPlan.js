@@ -1,16 +1,13 @@
-import React,{ useState}  from "react";
+import React from "react";
 import { Form, Input, Row, Col, Modal, Select, DatePicker,InputNumber } from "antd";
 import './index.css'
-
 const { Option } = Select;
-
 const ModalAddPlan = ({
     form,
     handleSubmit,
     handleCancel,
     isModalVisible,
 }) => {
-   
     return (
         <div>
             <Modal
@@ -18,6 +15,10 @@ const ModalAddPlan = ({
                 visible={isModalVisible}
                 onOk={handleSubmit}
                 onCancel={handleCancel}
+                footer={[
+                    <button className="plan_btnCancel" key="back" onClick={handleCancel}>Hủy</button>,
+                    <button className="plan_btnSubmit" key="submit"  onClick={handleSubmit}>Thêm</button>,
+                  ]}
             >
                 <Form
                     form={form}

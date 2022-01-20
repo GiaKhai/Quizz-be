@@ -8,19 +8,15 @@ const ModalEditPlan = ({
     handleSubmit,
     handleCancel,
     isModalVisible,
-    testList,
     dataEdit
 }) => {
-    console.log(testList);
     useEffect(() => { 
         form.setFieldsValue({
-            title: dataEdit.title,
-            schedule:dataEdit.schedule,
-            test_date:moment(moment(dataEdit.test_date).format("YYYY/MM/DD")),
-            number_question:dataEdit.number_question,
-            number_question_pass:dataEdit.number_question_pass,
-            
-
+            titleEdit: dataEdit.title,
+            scheduleEdit:dataEdit.schedule,
+            test_dateEdit:moment(moment(dataEdit.test_date).format("YYYY/MM/DD")),
+            number_questionEdit:dataEdit.number_question,
+            number_question_passEdit:dataEdit.number_question_pass,
         });
     });
     return (
@@ -30,6 +26,10 @@ const ModalEditPlan = ({
                 visible={isModalVisible}
                 onOk={handleSubmit}
                 onCancel={handleCancel}
+                footer={[
+                    <button className="plan_btnCancel" key="back" onClick={handleCancel}>Hủy</button>,
+                    <button className="plan_btnSubmit" key="submit"  onClick={handleSubmit}>Sửa</button>,
+                  ]}
             >
                 <Form
                     form={form}
@@ -41,7 +41,7 @@ const ModalEditPlan = ({
                     <Row>
                         <Col xs={{ span: 12 }}>
                             <Form.Item
-                                name="title"
+                                name="titleEdit"
                                 id="title"
                                 label="Tiêu đề:"
                                 rules={[
@@ -56,7 +56,7 @@ const ModalEditPlan = ({
                         </Col>
                         <Col xs={{ span: 12 }}>
                             <Form.Item
-                                name="schedule"
+                                name="scheduleEdit"
                                 label="Lịch trình"
                                 rules={[
                                     {
@@ -72,7 +72,7 @@ const ModalEditPlan = ({
                         <Col xs={{ span: 12 }}>
                             <Form.Item
                                 label="Ngày kiểm tra"
-                                name="test_date"
+                                name="test_dateEdit"
                                 rules={[
                                     {
                                         required: true,
@@ -86,7 +86,7 @@ const ModalEditPlan = ({
                         <Col xs={{ span: 12 }}>
                             <Form.Item
                                 label="Số câu hỏi"
-                                name="number_question"
+                                name="number_questionEdit"
                                 rules={[
                                     {
                                         required: true,
@@ -100,7 +100,7 @@ const ModalEditPlan = ({
                         <Col xs={{ span: 12 }}>
                             <Form.Item
                                 label="Số câu điều kiện vượt qua"
-                                name="number_question_pass"
+                                name="number_question_passEdit"
                                 rules={[
                                     {
                                         required: true,
