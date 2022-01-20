@@ -25,7 +25,7 @@ const ModalDoTest = ({
     }, [dispatch]);
     return (
         <div>
-             <Modal
+            <Modal
                 title="Kế hoạch thi"
                 visible={isModalVisible}
                 onCancel={handleCancel}

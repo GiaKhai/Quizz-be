@@ -13,7 +13,7 @@ class AddmoreUserResultTest extends Migration
      */
     public function up()
     {
-        Schema::table('user_result_test', function (Blueprint $table) {
+        Schema::table('user_result_tests', function (Blueprint $table) {
 
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');

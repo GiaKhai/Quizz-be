@@ -23,4 +23,8 @@ class UserResultTest extends Model
     public function testplan(){
         return $this->belongsTo(TestPlan::class);
     }
+    
+    // public function getUserResult(){
+    //     return $list =  TestPlan::with('user_result_test')->get();
+    // }
 }

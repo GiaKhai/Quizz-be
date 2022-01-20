@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { UserAddOutlined } from "@ant-design/icons";
 import { Button, Table, Switch, message as Message,Modal } from "antd";
 import { getPlanAction,getPlanActionPublic } from "../../actions/testPlan.action";
@@ -16,11 +16,11 @@ function TestPlan({ planList, updateStatus }) {
     const [pageSize, setPageSize] = useState(10);
     const [form] = useForm();
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [dataEdit,setDataEdit]=useState({})
+    const [dataEdit, setDataEdit] = useState({});
     useEffect(() => {
         dispatch(getPlanAction());
     }, [dispatch]);
-    
+
     //show modal add
     const showModal = () => {
         setIsModalVisible(true);
@@ -29,37 +29,35 @@ function TestPlan({ planList, updateStatus }) {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-    
+
     //handle show modal Edit
     const showModalEdit = (record) => {
         setIsModalVisibleEdit(true);
-        setDataEdit(record)
+        setDataEdit(record);
     };
     //handle cancel modal Edit
     const handleCancelEdit = () => {
         setIsModalVisibleEdit(false);
     };
-    
 
     //handle delete data
-    const handleDeleteData=(id)=>{
+    const handleDeleteData = (id) => {
         confirm({
-            content:"Bạn muốn xóa?",
+            content: "Bạn muốn xóa?",
             onOk() {
-                axios.delete(`${testPlanURL}/${id}`).then((res)=>{
+                axios.delete(`${testPlanURL}/${id}`).then((res) => {
                     if (res.status === 200) {
                         Message.success("Xóa thành công");
                         dispatch(getPlanAction());
                         dispatch(getPlanActionPublic()); 
                     }
-                })
+                });
             },
-            onCancel() {
-            },
-            okText:"Có",
-            cancelText:"Không"
-        })
-    }
+            onCancel() {},
+            okText: "Có",
+            cancelText: "Không",
+        });
+    };
     const columns = [
         {
             title: "STT",
@@ -67,10 +65,10 @@ function TestPlan({ planList, updateStatus }) {
             key: "id",
             align: "center",
             width: 120,
-            render: (index, record,stt) =>{
-                var index =pageSize*(currentPage-1) + (stt+1)
-                return <p>{index}</p>
-            }
+            render: (index, record, stt) => {
+                var index = pageSize * (currentPage - 1) + (stt + 1);
+                return <p>{index}</p>;
+            },
         },
         {
             title: "Tiêu đề",
@@ -127,28 +125,25 @@ function TestPlan({ planList, updateStatus }) {
             render: (_, record) => {
                 return (
                     <div>
-                       <Button
-                            onClick={()=>handleDeleteData(record.id)}
+                        <Button
+                            onClick={() => handleDeleteData(record.id)}
                             danger
                         >
-                        Xóa
+                            Xóa
                         </Button>
-                        <Button
-                         onClick={()=>showModalEdit(record)}
-                        >
+                        <Button onClick={() => showModalEdit(record)}>
                             Sửa
                         </Button>
                     </div>
-                   
                 );
             },
             width: 150,
             align: "center",
         },
     ];
-     //handle change when change pagination
-     function onChangePagination(currentPageData){
-        setCurrentPage(currentPageData.current)
+    //handle change when change pagination
+    function onChangePagination(currentPageData) {
+        setCurrentPage(currentPageData.current);
     }
     return (
         <div className="content-page">
@@ -178,7 +173,13 @@ function TestPlan({ planList, updateStatus }) {
                 dataEdit={dataEdit}
             />
 
-            <Table columns={columns} dataSource={testPlan} onChange={(pagination, filters, sorter, currentPageData) =>onChangePagination(pagination)}/>
+            <Table
+                columns={columns}
+                dataSource={testPlan}
+                onChange={(pagination, filters, sorter, currentPageData) =>
+                    onChangePagination(pagination)
+                }
+            />
         </div>
     );
 }

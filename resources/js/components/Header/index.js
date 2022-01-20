@@ -1,8 +1,12 @@
 import React,{ useState,useEffect } from "react";
 import "./header.css";
 import { Link } from "react-router-dom";
-import { MethodCommon } from '../../../common/MethodCommon'
-import {TOKEN_NAME,INFO_USER,REFRESH_TOKEN} from '../../../common/parameters'
+import { MethodCommon } from "../../../common/MethodCommon";
+import {
+    TOKEN_NAME,
+    INFO_USER,
+    REFRESH_TOKEN,
+} from "../../../common/parameters";
 import { useHistory } from "react-router-dom";
 import { Menu, Dropdown} from 'antd';
 import Userdotest from "../../../containers/UserDoTest";
@@ -44,17 +48,30 @@ const Header = () => {
             </div>
             <nav>
                 <Link onClick={showModal} className="link" to="">
-                   Thi
+                    Thi
                 </Link>
-                {user_role === 'Admin'? 
-                <Link className="link" to="/user">
-                    Người Dùng
-                </Link>:''}
+                {user_role === "User" ? (
+                    <Link className="link" to="/result-me">
+                        Kết quả
+                    </Link>
+                ) : (
+                    ""
+                )}
+                {user_role === "Admin" ? (
+                    <Link className="link" to="/user">
+                        Người Dùng
+                    </Link>
+                ) : (
+                    ""
+                )}
 
-                {user_role === 'Admin'? 
-                <Link className="link" to="/test-plan">
-                    Kế hoạch
-                </Link>:''}
+                {user_role === "Admin" ? (
+                    <Link className="link" to="/test-plan">
+                        Kì thi
+                    </Link>
+                ) : (
+                    ""
+                )}
 
                 {user_role === 'Admin'? 
                 <Link className="link" to="/question">
@@ -70,7 +87,6 @@ const Header = () => {
                     handleCancel={handleCancel}
                 />
             </nav>
-
         </header>
     );
 };
