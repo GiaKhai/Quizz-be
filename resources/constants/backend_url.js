@@ -23,3 +23,7 @@ export const createQuestion = `${API_URL}/api/create_question`;
 export const deleteQuestion = `${API_URL}/api/delete_question`;
 
 export const updateQuestion = `${API_URL}/api/update_question`;
+
+export const planResultTest = `${API_URL}/api/plan-result-test`;
+
+export const checkUserExistHistory = `${API_URL}/api/check_user_exist_history_by_planid`;

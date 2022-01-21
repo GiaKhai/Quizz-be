@@ -10,35 +10,9 @@ import EditUser from "../../containers/EditUser";
 
 const { confirm } = Modal;
 
-function showConfirm(id) {
-    confirm({
-        title: "Bạn có muốn xóa?",
-        icon: <ExclamationCircleOutlined />,
-        async onOk() {
-            const res = await axios.delete(`${userURL}/${id}`);
-            if (res.status === 200) {
-                Message.success("Xóa thành công");
-                dispatch(getUserAction());
-            }
-        },
-        onCancel() {
-            console.log("Cancel");
-        },
-        okText:"Có",
-        cancelText:"Không"
-    });
-}
-
-
-
 const User = ({ userList }) => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
-    const [isModalVisibleEdit, setIsModalVisibleEdit] = useState(false);
-    const [dataEdit,setDataEdit]=useState({})
     const [form] = useForm();
     const dispatch = useDispatch();
-
     const [data, setData] = useState();
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isModalVisibleEdit, setIsModalVisibleEdit] = useState(false);
@@ -110,6 +84,25 @@ const User = ({ userList }) => {
             width: 150,
         },
     ];
+    function showConfirm(id) {
+        confirm({
+            title: "Bạn có muốn xóa?",
+            icon: <ExclamationCircleOutlined />,
+            async onOk() {
+                const res = await axios.delete(`${userURL}/${id}`);
+                if (res.status === 200) {
+                    Message.success("Xóa thành công");
+                    dispatch(getUserAction());
+                }
+            },
+            onCancel() {
+                console.log("Cancel");
+            },
+            okText:"Có",
+            cancelText:"Không"
+        });
+    }
+    
     return (
         <div className="content-page">
             <div className="title">Quản lí người dùng</div>

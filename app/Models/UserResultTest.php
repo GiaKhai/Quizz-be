@@ -15,6 +15,7 @@ class UserResultTest extends Model
         'plan_id',
         "number_correct",
         "total_question",
+        'pass_status',
         'result_test'
     ];
     public function users(){
@@ -22,6 +23,25 @@ class UserResultTest extends Model
     }
     public function testplan(){
         return $this->belongsTo(TestPlan::class);
+    }
+    public function saveHistoryUserTest($user_id, $plan_id,$totalQuestion,$resultTest,$detailUserTest,$numberCorrect){
+        $historyTest = new UserResultTest();
+        $historyTest->user_id = $user_id;
+        $historyTest->plan_id = $plan_id;
+        $historyTest->total_question = $totalQuestion;
+        $historyTest->pass_status = $resultTest;
+        $historyTest->result_test = $detailUserTest;
+        $historyTest->number_correct = $numberCorrect;
+        $historyTest->save();
+    }
+    public function checkUserExistInHistoryByPlanID($user_id,$plan_id){
+        $result = false;
+        $check =  UserResultTest::where('user_id', $user_id)->where('plan_id', $plan_id)->count();
+        if( $check >0)
+        {
+            $result = true;
+        }
+        return $result;
     }
     
     // public function getUserResult(){

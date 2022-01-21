@@ -112,7 +112,7 @@ function TestPlan({ planList, updateStatus }) {
                         checkedChildren="Mở"
                         unCheckedChildren="Đóng"
                         checked={value === 1 ? true : false}
-                        onChange={() => updateStatus(value, row.id)}
+                         onChange={() => handleupdateStatus(value, row.id)}
                     />
                 );
             },
@@ -144,6 +144,11 @@ function TestPlan({ planList, updateStatus }) {
     //handle change when change pagination
     function onChangePagination(currentPageData) {
         setCurrentPage(currentPageData.current);
+    }
+       const handleupdateStatus=(value, Rowid)=>{
+        updateStatus(value, Rowid)
+        dispatch(getPlanActionPublic()); 
+        
     }
     return (
         <div className="content-page">

@@ -10,7 +10,7 @@ use App\Models\TestPlan;
 use Illuminate\Support\Facades\Log;
 class QuestionController extends Controller
 {
-    ///
+    
     public function getQuestion(Request $request) 
     {
         $ques = new Question();
@@ -26,7 +26,11 @@ class QuestionController extends Controller
         $currentPage = $request->currentPage-1;
         $perPage = $request->perPage;
         $pagedData = array_slice($arrayData, $currentPage * $perPage, $perPage);
-        // $listData = json_encode($pagedData);
+        if(count($pagedData)==0)
+        {
+            $currentPage=$currentPage-1;
+            $pagedData = array_slice($arrayData, $currentPage * $perPage, $perPage);
+        }
         return response()->json([
             'currentPage' => $currentPage,
             'perPage' => $perPage,

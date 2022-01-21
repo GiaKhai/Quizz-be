@@ -12,6 +12,7 @@ import { useHistory } from "react-router-dom";
 import './Css/index.css'
 import CheckBoxButton from './Controls/CheckBox_button';
 import { useParams } from "react-router-dom";
+
 const { Title } = Typography;
 
 const Usertest = ({props}) => {
@@ -52,7 +53,10 @@ const Usertest = ({props}) => {
                 setLastPage(false)
                 setFirtPage(true)
             }
-            var initDataFirst = {...stateDataSubmit}
+            var initDataFirst ={
+                id_user:data_user.id,
+                data_choice:[]
+            }
             for(var i=0;i<dataRes.length;i++)
             {
                 let objectChoose = {...chooseObject}
@@ -209,11 +213,7 @@ const Usertest = ({props}) => {
                 }
                 setDataShowing(arrayCompare)
                 setGotoQuestionId(index)
-                // xx(listRef.current[index])
-                // console.log(listRef.current[index])
             }
-            // let a=  document.getElementsByClassName(`question${index}`)
-            // console.log("a:",a)
         }while(!item_found);
     }
     
@@ -286,6 +286,7 @@ const Usertest = ({props}) => {
                     dataSource={stateDataSubmit}
                     handleCheckSubmit={handleCheckSubmit}
                     planTest_id={Number(planTest_id)}
+                    isSubmit={isSubmit}
                 />
                 </div>
             </div>

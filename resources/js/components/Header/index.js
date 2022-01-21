@@ -47,6 +47,13 @@ const Header = () => {
                 <a href="/">Quizz</a>
             </div>
             <nav>
+               {user_role === "Admin" ? (
+                    <Link className="link" to="/result-test">
+                        Kết quả
+                    </Link>
+                ) : (
+                    ""
+                )}
                 <Link onClick={showModal} className="link" to="">
                     Thi
                 </Link>
