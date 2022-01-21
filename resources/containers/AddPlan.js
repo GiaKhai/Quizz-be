@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import ModalAddPlan from "../js/components/Plan/ModalAddPlan";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { message as Message } from "antd";
 import { getPlanAction, postPlanAction,getPlanActionPublic } from "../actions/testPlan.action";
 
@@ -9,7 +9,10 @@ const AddUser = ({ isModalVisible, handleCancel, form, setIsModalVisible }) => {
     useEffect(() => {
     }, [dispatch]);
 
-    const handleSubmit = async (test) => {  
+    /**
+     * handle submit
+    */
+    const handleSubmit = async () => {  
         try {
             await form.validateFields();
             let { title, test_date, schedule, status, number_question_pass, number_question } =

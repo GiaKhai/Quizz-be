@@ -80,11 +80,18 @@ const Usertest = ({props}) => {
        }
     })
 
-    //set submit = true
+    /**
+     * set submit = true
+    */
     const handleCheckSubmit = ()=>{
         setIsSubmit(true)
     }
-    //handle choose option in each question
+
+    /**
+     * handle choose option in each question
+     * @param {*} value
+     * @param {*} questionID
+    */
     const handle_getChooseOption =(value,questionID)=>{
         let object_data = {...stateDataSubmit}
         let objectChoose = {...chooseObject}
@@ -108,7 +115,10 @@ const Usertest = ({props}) => {
         }
         setStateDataSubmit(object_data)
     }
-    //handle next page
+
+    /**
+     * handle next page
+    */
     function handle_Next(){
         let newSkip =valueSkip + info_pagination.limit
         var index = newSkip
@@ -127,7 +137,10 @@ const Usertest = ({props}) => {
         }
         setDataShowing(newArray)
     }
-    //handle prev page
+  
+    /**
+     * handle prev page
+    */
     function handle_Prev(){
         let newSkip =valueSkip - info_pagination.limit
         var index = newSkip
@@ -149,7 +162,9 @@ const Usertest = ({props}) => {
         }
         setDataShowing(newArray)
     }
-    //go home page
+    /**
+     * go home page
+    */
     const handle_goHome=()=>{
         history.push("/")
     }
@@ -164,7 +179,12 @@ const Usertest = ({props}) => {
             stateDataSubmit.data_choice[i]=JSON.parse(stateDataSubmit.data_choice[i])
         }
     }
-    //go to question clicked
+  
+    /**
+     * go to question clicked
+     * @param {*} id 
+     * @param {*} value
+    */
     let handle_GotoQuestion=(id,index)=>{
         let newSkip = LIMITE_PAGE;
         var newArray = [...allData];

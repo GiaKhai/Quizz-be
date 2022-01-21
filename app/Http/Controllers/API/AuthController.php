@@ -24,7 +24,7 @@ class AuthController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
-     //Pending
+     //Pending....
      public function getAuthUser(Request $request)
     {
         Log::info('XACTHUCXXX JWT');
@@ -59,6 +59,11 @@ class AuthController extends Controller
             ]);
         }
     }
+    /**
+     * Handle login
+     * @param {*} $request
+     * @returns 
+    */
     public function login(LoginRequest $request)
     {
         Log::info('LOGIN XX');
@@ -124,6 +129,13 @@ class AuthController extends Controller
     //         throw new InternalException('ログアウトに失敗しました。');
     //     }
     // }
+
+    /**
+     * Handle logout
+     * @param {*} $request
+     * @returns 
+    */
+    //pending....
     public function logout(Request $request)
     {
         $this->validate($request, [

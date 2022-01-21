@@ -3,27 +3,43 @@ import { questionURL,createQuestion,updateQuestion } from "../constants/backend_
 import { questionConstants } from "../constants/question.contants";
 import { message as Message } from "antd";
 
+/**
+ * Get Question Success 
+ * @param {*} data 
+ * @returns 
+ */
 export const getQuestionSuccess = (data) => {
     return {
         type: questionConstants.GET_QUESTION_SUCCESS,
         data,
     };
 };
-
+/**
+ * Get Question Fail
+ * @returns 
+ */
 const getQuestionFail = () => {
     return {
         type: questionConstants.GET_QUESTION_FAIL,
     };
 };
-
+/**
+ * Get a question
+ * @param {*} data 
+ * @returns 
+ */
 export const getInfoQuestion = (data) => {
     return {
         type: questionConstants.GET_INFO_QUESTION,
         data,
     };
 };
+/**
+ * Create a question
+ * @param {*} data
+ * @returns 
+ */
 export const sendInfoQuestion_Toserver = async (data) => {
-   
    let answer_option = data.answer_choices
    let newArr=[]
    for (var i=0;i<answer_option.length;i++)
@@ -35,7 +51,6 @@ export const sendInfoQuestion_Toserver = async (data) => {
         return
     }
    data.answer_choices= newArr
-
    try {
         const response = await axios.post(createQuestion,data);
         var result = response.data
@@ -48,7 +63,11 @@ export const sendInfoQuestion_Toserver = async (data) => {
         return { success: false };
     }
 };
-
+/**
+ * Update a question
+ * @param {*} data
+ * @returns 
+ */
 export const updateQuestionToServer = async (data) => {
    let answer_option = data.answer_choices
    let newArr=[]

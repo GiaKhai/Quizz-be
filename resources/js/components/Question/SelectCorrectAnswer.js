@@ -1,6 +1,6 @@
-import React,{ useState ,useEffect} from 'react';
+import React,{ useState } from 'react';
 import {Select,Form} from 'antd';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 const { Option } = Select;
 import './index.css'
 const Selectcorrectanswer = ({statusMultiple}) => {

@@ -2,6 +2,11 @@ import axios from "axios";
 import { testListURL } from "../constants/backend_url";
 import { testListConstants } from "../constants/testList.contants";
 import { message as Message } from "antd";
+/**
+ * Get List Success
+ * @param {*} data 
+ * @returns 
+ */
 const getListSuccess = (data) => {
     return {
         type: testListConstants.GET_LIST_SUCCESS,
@@ -9,12 +14,18 @@ const getListSuccess = (data) => {
     };
 };
 
+/**
+ * Get List Fail
+ */
 const getListFail = () => {
     return {
         type: testListConstants.GET_LIST_FAIL,
     };
 };
 
+/**
+ * Get list
+ */
 export const getListAction = () => {
     return async (dispatch) => {
         try {
@@ -28,6 +39,11 @@ export const getListAction = () => {
     };
 };
 
+/**
+ * Create a test list
+ * @param {*} body 
+ * @returns 
+ */
 export const postTestListAction = async (body) => {
     try {
         const result = await axios.post(testListURL, body);
@@ -40,6 +56,12 @@ export const postTestListAction = async (body) => {
     }
 };
 
+/**
+ * Update a test list
+ * @param {*} body 
+ * @param {*} id 
+ * @returns 
+ */
 export const updateTestListAction = async (id,body) => {
     try {
         const result = await axios.put(`${testListURL}/${id}`, body);

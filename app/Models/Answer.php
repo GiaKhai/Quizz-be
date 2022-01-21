@@ -20,6 +20,11 @@ class Answer extends Model
     {
         return $this->belongsTo(Question::class);
     }
+
+    /**
+     * save data
+     * @param {*} $data 
+    */
     public function saveData($data)
     {
         $data->save();

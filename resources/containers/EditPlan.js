@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { getListAction } from "../actions/testList.action";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { message as Message } from "antd";
 import { getPlanAction,updateTestPlan,getPlanActionPublic } from "../actions/testPlan.action";
 import ModalEditPlan from "../js/components/Plan/ModalEditPlan";
@@ -10,9 +10,11 @@ const EditPlan= ({ isModalVisible, handleCancel, form, setIsModalVisible,dataEdi
     useEffect(() => {
         dispatch(getListAction());
     }, [dispatch]);
-    
-    //handle submit data
-    const handleSubmit = async (test) => {
+     
+    /**
+     * handle submit data
+     */
+    const handleSubmit = async () => {
         try {
             await form.validateFields();
             let { titleEdit, test_dateEdit, number_question_passEdit, number_questionEdit, scheduleEdit} =

@@ -20,20 +20,32 @@ const User = ({ userList }) => {
     useEffect(() => {
         setData(userList);
     }, [userList]);
-     //handle show modal Add
+
+    /**
+     * handle show modal Add
+    */
     const showModal = () => {
         setIsModalVisible(true);
     };
-    //handle cancel modal Add  
+    
+    /**
+     * handle cancel modal Add  
+    */
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-    //handle show modal Edit
+
+    /**
+     * handle show modal Edit
+    */
     const showModalEdit = (record) => {
         setIsModalVisibleEdit(true);
         setDataEdit(record)
     };
-     //handle cancel modal Edit
+
+    /**
+     * handle cancel modal Edit
+    */
      const handleCancelEdit = () => {
         setIsModalVisibleEdit(false);
     };

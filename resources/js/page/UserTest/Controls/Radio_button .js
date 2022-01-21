@@ -13,6 +13,10 @@ const RadioButton = ({
     user_choices,
 }) => {
     const [value, setValue] = useState("")
+    /**
+     * handle change
+     * @param {*} e
+    */
     const onChange = e => {
         handle_getChooseOption(e.target.value)
         setValue(e.target.value)
@@ -36,7 +40,11 @@ const RadioButton = ({
         }
     })
 
-    //show correct icon
+    /**
+     * show correct icon
+     * @param {*} correct
+     * @returns 
+    */
     function checkCorrect(correct)
     {
         if(isSubmit === true){
@@ -49,7 +57,14 @@ const RadioButton = ({
             return ''
         }
     }
-    //show incorrect icon
+
+    /**
+     * show incorrect icon
+     * @param {*} correct
+     *  @param {*} value
+     *  @param {*} id_opiton
+     * @returns 
+    */
     function checkFail(correct,value,id_opiton)
     {
         if(isSubmit === true){

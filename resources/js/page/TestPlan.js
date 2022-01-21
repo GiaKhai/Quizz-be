@@ -8,7 +8,7 @@ import { useForm } from "antd/lib/form/Form";
 import { useDispatch, useSelector } from "react-redux";
 import EditPlan from "../../containers/EditPlan";
 const { confirm } = Modal;
-function TestPlan({ planList, updateStatus }) {
+function TestPlan({ updateStatus }) {
     const dispatch = useDispatch();
     const testPlan = useSelector((state) => state.planReducers.planList);
     const [currentPage, setCurrentPage] = useState(1);
@@ -21,26 +21,39 @@ function TestPlan({ planList, updateStatus }) {
         dispatch(getPlanAction());
     }, [dispatch]);
 
-    //show modal add
+    /**
+     * show modal add
+    */
     const showModal = () => {
         setIsModalVisible(true);
     };
-    //cancel modal add
+    
+    /**
+     * cancel modal add
+    */
     const handleCancel = () => {
         setIsModalVisible(false);
     };
 
-    //handle show modal Edit
+    /**
+     * handle show modal Edit
+    */
     const showModalEdit = (record) => {
         setIsModalVisibleEdit(true);
         setDataEdit(record);
     };
-    //handle cancel modal Edit
+
+    /**
+     * handle cancel modal Edit
+    */
     const handleCancelEdit = () => {
         setIsModalVisibleEdit(false);
     };
 
-    //handle delete data
+    /**
+     * handle delete data
+     * @param {*} id
+    */
     const handleDeleteData = (id) => {
         confirm({
             content: "Bạn muốn xóa?",
@@ -141,7 +154,11 @@ function TestPlan({ planList, updateStatus }) {
             align: "center",
         },
     ];
-    //handle change when change pagination
+    
+    /**
+     * handle change when change pagination
+     * @param {*} currentPageData
+    */
     function onChangePagination(currentPageData) {
         setCurrentPage(currentPageData.current);
     }

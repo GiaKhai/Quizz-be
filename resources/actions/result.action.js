@@ -3,6 +3,11 @@ import { planResultTest } from "../constants/backend_url";
 import { result } from "../constants/result.contants";
 import { message as Message } from "antd";
 
+/**
+ * Get result success
+ * @param {*} data 
+ * @returns 
+ */
 const getResultSuccess = (data) => {
     return {
         type: result.GET_RESULT,
@@ -10,6 +15,9 @@ const getResultSuccess = (data) => {
     };
 };
 
+/**
+ * Get result 
+ */
 export const getResultAction = () => {
     return async (dispatch) => {
         try {
@@ -21,6 +29,12 @@ export const getResultAction = () => {
     };
 };
 
+
+/**
+ * Create a plan result test
+ * @param {*} body 
+ * @returns 
+ */
 export const postPlanResultTest = async (body) => {
     try {
         const result = await axios.post(planResultTest, body);

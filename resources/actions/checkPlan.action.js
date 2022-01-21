@@ -3,7 +3,11 @@ import { checkPlanURL } from "../constants/backend_url";
 import { testPlanConstants } from "../constants/testPlan.contants";
 import { message as Message } from "antd";
 
-
+/**
+ * check status of a plan
+ * @param {*} body, id
+ * @returns 
+ */
 export const checkPlan = async (body, id) => {
     try {
         const response = await axios.post(checkPlanURL, body);

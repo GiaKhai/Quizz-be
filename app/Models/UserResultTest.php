@@ -24,6 +24,17 @@ class UserResultTest extends Model
     public function testplan(){
         return $this->belongsTo(TestPlan::class);
     }
+    /**
+     * sava user test to history
+     * @param {*} $id
+     * @param {*} $user_id
+     *  @param {*} $plan_id
+     *  @param {*} $totalQuestion
+     *  @param {*} $resultTest
+     *  @param {*} $detailUserTest
+     *  @param {*} $numberCorrect
+     * @returns 
+    */
     public function saveHistoryUserTest($user_id, $plan_id,$totalQuestion,$resultTest,$detailUserTest,$numberCorrect){
         $historyTest = new UserResultTest();
         $historyTest->user_id = $user_id;
@@ -34,6 +45,13 @@ class UserResultTest extends Model
         $historyTest->number_correct = $numberCorrect;
         $historyTest->save();
     }
+
+     /**
+     * check User Exist In History By PlanID
+     *  @param {*} $user_id
+     *  @param {*} $plan_id
+     * @returns 
+    */
     public function checkUserExistInHistoryByPlanID($user_id,$plan_id){
         $result = false;
         $check =  UserResultTest::where('user_id', $user_id)->where('plan_id', $plan_id)->count();

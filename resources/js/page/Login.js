@@ -15,10 +15,12 @@ const Login = () => {
     const onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo);
     };
-
+   
+    /**
+     * handle submit
+    */
     const handleSubmit = async () => {
         let cookie = document.cookie;
-        // console.log(cookie);
         try {
             const response = await axios.post(
                 "http://127.0.0.1:8000/api/auth/login",

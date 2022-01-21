@@ -1,15 +1,13 @@
 import React,{useEffect} from "react";
-import { Form, Input, Row, Col, Modal, Select,Button} from "antd";
+import { Row, Col, Modal} from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { getPlanAction ,getPlanActionPublic} from "../../../actions/testPlan.action";
+import { getPlanActionPublic} from "../../../actions/testPlan.action";
 import { MethodCommon } from '../../../common/MethodCommon'
-import {TOKEN_NAME,INFO_USER,REFRESH_TOKEN,LIMITE_PAGE} from '../../../common/parameters'
+import {INFO_USER} from '../../../common/parameters'
 import { useHistory } from "react-router-dom";
 import './index.css'
 import { Service  } from './Services/Services';
 import { message as Message } from "antd";
-const { Option } = Select;
-
 const ModalDoTest = ({ 
     handleCancel,
     isModalVisible,
@@ -20,7 +18,11 @@ const ModalDoTest = ({
     let history = useHistory();
     const dispatch = useDispatch();
     const planList = useSelector((state) => state.planReducers.planListPublic);
-
+    
+    /**
+     * Go to test page
+     * @param {*} id
+    */
     const handeGotoTestPage=(id)=>{
         let plan_id=id
         let user_id=data_user.id

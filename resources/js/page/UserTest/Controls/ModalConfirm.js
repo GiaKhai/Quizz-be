@@ -8,12 +8,21 @@ import '../Css/index.css'
 const Modalconfirm = ({dataSource,handleCheckSubmit,planTest_id,isSubmit}) => {
     const dispatch = useDispatch();
     const [isModalVisible, setIsModalVisible] = useState(false);
+    /**
+     * handle show modal
+    */
     const showModal = () => { 
        setIsModalVisible(true);
     };
+    /**
+     * handle cancel modal
+    */
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+    /**
+     * handle confirm when submit
+    */
     function handle_ConfirmSubmit(){
         let clone_dataSource={...dataSource}
 

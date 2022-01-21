@@ -11,12 +11,15 @@ use Illuminate\Support\Facades\Log;
 class QuestionController extends Controller
 {
     
+    /**
+     * get list question for each page
+     * @param {*} $request
+     * @returns 
+    */
     public function getQuestion(Request $request) 
     {
         $ques = new Question();
         $list = $ques->getListQuestion();
-        
-
         $arrayData =json_decode(json_encode($list), true);
         for($i=0;$i<count($arrayData);$i++)
         {
@@ -37,9 +40,13 @@ class QuestionController extends Controller
             'totalPage'=>$totalQues,
             'data'=>$pagedData,
         ]);
-        // return response()->json($pagedData, 200);
     }
     
+    /**
+     * get list question for a test
+     * @param {*} $request
+     * @returns 
+    */
     public function loadingQuestionTest(Request $request) 
     {   
         $id_plan = $request->planTest_id;
@@ -50,7 +57,12 @@ class QuestionController extends Controller
         
         return response()->json($list, 200);
     }
-
+    
+     /**
+     * create a question
+     * @param {*} $request
+     * @returns 
+    */
     public function createQuestion(Request $request) 
     {
         $ques = new Question();
@@ -79,10 +91,22 @@ class QuestionController extends Controller
             'status' => true,
         ]);
     }
+
+     /**
+         * delete a question
+         * @param {*} $id
+         * @returns 
+    */
     public function deleteQuestion($id) 
     {
         return Question::destroy($id);
     }
+
+    /**
+         * update a question
+         * @param {*} $request
+         * @returns 
+    */
     public function updateQuestion(Request $request) {
         $id_Question= $request->id;
         $answer_options=$request->answer_choices;
@@ -112,12 +136,4 @@ class QuestionController extends Controller
             'status' => true,
         ]);
     }
-    
-    
-    
-// public function getAnswer() 
-//     {
-//         $ques = Answer::all();
-//         return response()->json($ques, 200);
-//     }
 }

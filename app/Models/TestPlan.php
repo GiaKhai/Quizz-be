@@ -28,11 +28,20 @@ class TestPlan extends Model
         // return $this->belongsTo(UserResultTest::class);
         return $this->hasMany(UserResultTest::class);
     }
+
+    /**
+     * get plan list
+     * @returns 
+    */
     public function getPlan() 
     {
         $plan = TestPlan::with('TestPlan')->get();
         return $plan;
     }
+    /**
+     * get plan list have public status
+     * @returns 
+    */
     public function getPlanPublic() 
     {
         $plan = TestPlan::where('status', 1)->get();

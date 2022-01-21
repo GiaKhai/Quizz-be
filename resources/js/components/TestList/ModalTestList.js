@@ -1,13 +1,12 @@
-import React,{useEffect} from "react";
-import { Form, Input, Row, Col, Modal, Select, DatePicker } from "antd";
-const { Option } = Select;
+import React from "react";
+import { Form, Input, Row, Col, Modal } from "antd";
+
 
 const ModalAddTestList = ({
     form,
     handleSubmit,
     handleCancel,
     isModalVisible,
-    // testList,
 }) => {
 
     return (

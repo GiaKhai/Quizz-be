@@ -22,7 +22,13 @@ class  User extends Authenticatable implements JWTSubject
         
         //'is_verified','auth_token'
     ];
-   
+
+    /**
+     * update a User
+     * @param {*} $id
+     * @param {*} $request
+     * @returns 
+    */
     public function updateUser($request,$id)
     {
         $user = User::find($id);

@@ -10,6 +10,10 @@ import { Service  } from '../js/page/QuestionList/Services/Services';
 const Addquestion = ({ isModalVisible, handleCancel, setIsModalVisible,pagination }) => {
     const [form] = Form.useForm();
     const dispatch = useDispatch();
+    /**
+     * handle submit
+     * @param {*} data
+    */
     const handleSubmit = async (data) => {
         try {
             const { success } = await sendInfoQuestion_Toserver(data);
