@@ -19,6 +19,7 @@ class UserResultTest extends Migration
             $table->bigInteger("number_correct");
             $table->bigInteger("total_question");
             $table->json('result_test');
+            $table->boolean('pass_status');
             $table->timestamps();
         });
     }

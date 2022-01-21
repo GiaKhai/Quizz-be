@@ -91,7 +91,7 @@ class Test extends Controller
             ]);
         }
     }
-    //////
+
     public function resultTest(Request $request)
     {
         $user_id= $request->id_user;
@@ -100,7 +100,8 @@ class Test extends Controller
         $conditionPass =  $plan->number_question_pass;
         $data =$request->data_choice;
         $checkCorrect = 0;
-        $resultTest = false;
+        $resultTest = 0;
+        $totalQuestion=count($data);
         for ($i = 0; $i < count($data); $i++) {
             $data_test =json_decode($data[$i]); 
             $choices = $data_test->user_choice;
@@ -127,15 +128,29 @@ class Test extends Controller
         }
         
         if($checkCorrect >= $conditionPass ){
-            $resultTest=true;
+            $resultTest=1;
         }
+        $history = new UserResultTest();
+        $saveHistory =$history->saveHistoryUserTest($user_id, $plan_id,$totalQuestion,$resultTest,json_encode($data), $checkCorrect);
+
         return response()->json([
             'correct' => $checkCorrect ,
-            'totalQuestion'=> count($data),
+            'totalQuestion'=>  $totalQuestion,
             'resultTest'=>$resultTest,
         ]);
     }
-
+    //pending
+    public function checkUserExistHistoryByPlanID(Request $request)
+    {
+         $user_id= $request->user_id;
+         $plan_id= $request->plan_id;
+         $history = new UserResultTest();
+         $resultCheck = $history->checkUserExistInHistoryByPlanID($user_id,$plan_id);    
+         return response()->json([
+            'resultCheck' => $resultCheck,
+        ]);
+    }
+    
     public function getPlanResult() 
     {
         $list = UserResultTest::all();

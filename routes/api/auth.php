@@ -73,4 +73,6 @@ Route::post('resultTest', [Test::class,'resultTest']);
 
 Route::get('plan-result-test', [Test::class,'getPlanResult']);
 Route::post('plan-result-test', [Test::class,'postPlanResult']);
+Route::post('check_user_exist_history_by_planid', [Test::class,'checkUserExistHistoryByPlanID']);
+
 
