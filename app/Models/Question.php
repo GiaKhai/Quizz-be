@@ -20,18 +20,36 @@ class Question extends Model
     {
         return $this->hasMany(Answer::class);
     }
-//////
+    
+    /**
+     * get list question
+     * @param {*} $data 
+     * @returns 
+    */
     public function getListQuestion() 
     {
        
         $queslist =  Question::with('answers')->get();
         return $queslist;
     }
+
+    
+    /**
+     * get List Question Random
+     * @param {*} $numberQuestion
+     * @returns 
+    */
     public function getListQuestionRandom($numberQuestion) 
     {
         $ques = Question::inRandomOrder()->limit($numberQuestion)->with('answers')->get();
         return $ques;
     }
+
+    /**
+     * create a question
+     * @param {*} $data
+     * @returns 
+    */
     public function createData($data) 
     {
         $ques = new Question();
@@ -40,6 +58,12 @@ class Question extends Model
         $ques->save();
         return $ques->id;
     }
+
+    /**
+     * update a question
+     * @param {*} $data
+     * @returns 
+    */
     public function updateData($data) 
     {
         $id_Question= $data->id;

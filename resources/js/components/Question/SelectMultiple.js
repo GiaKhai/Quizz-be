@@ -1,13 +1,11 @@
-import React ,{ useState ,useEffect}from 'react';
+import React ,{ useState }from 'react';
 import {Select,Form} from 'antd';
-import { useDispatch, useSelector } from "react-redux";
-import { getInfoQuestion } from "../../../actions/question.action";
+import {  useSelector } from "react-redux";
 import './index.css'
 const { Option } = Select;
 
 
 const Selectmultiple = () => {
-    const dispatch = useDispatch();
     const info_question = useSelector((state) => state.inFoQuestionReducer.info_question)
   
     const [status ,setStatus] =useState(info_question.isMultiple)

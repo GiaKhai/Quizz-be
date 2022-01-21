@@ -26,6 +26,11 @@ function QuestionList({  }) {
     const [totalPage,setTotaPage]=useState(0);
     const [pageSize,setpageSize]=useState(10);
    
+    
+    /**
+     * call api to show list question
+     * @param {*} body 
+     */
     function CallAPI(body){
         Service.loadingQuestion(body).then((response)=>{
             let result =response.data
@@ -42,7 +47,10 @@ function QuestionList({  }) {
         CallAPI(body)
     },[data]);
 
-    //handle change pagezie
+     /**
+     * handle change pagezie
+     * @param {*} value
+     */
     const handleChangePageSize=(value)=>{
         let body={
             currentPage:pagination.currentPage,
@@ -53,7 +61,10 @@ function QuestionList({  }) {
         CallAPI(body)
     }
 
-    //handle change pagezie
+    /**
+     * handle change page current
+     * @param {*} value
+    */
     const handleChangePageCurrent=(value)=>{
         let body={
             currentPage:value,
@@ -66,15 +77,24 @@ function QuestionList({  }) {
             setTotaPage(result.totalPage)
         })
     }
-    //handle show modal Add
+
+    /**
+     * handle show modal Add
+    */
     const showModal = () => {
         setIsModalVisible(true);
     };
-    //handle cancel modal Add
+  
+    /**
+     * handle cancel modal Add
+    */
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-    //handle show modal Edit
+   
+    /**
+     * handle show modal Edit
+    */
     const showModalEdit = (record) => {
         let clone_model = {...init_info_question}
         clone_model.id=record.id
@@ -100,11 +120,17 @@ function QuestionList({  }) {
         dispatch(getInfoQuestion(clone_model))
         setIsModalVisibleEdit(true);
     };
-    //handle cancel modal Edit
+    
+    /**
+     * handle cancel modal Edit
+    */
     const handleCancelEdit = () => {
         setIsModalVisibleEdit(false);
     };
-    //handle delete data
+
+    /**
+     * handle delete data
+    */
     const handleDeleteData=(id)=>{
         confirm({
             content:"Bạn muốn xóa",

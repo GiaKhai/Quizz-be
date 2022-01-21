@@ -1,4 +1,4 @@
-import React,{ useState,useEffect } from "react";
+import React,{ useState } from "react";
 import "./header.css";
 import { Link } from "react-router-dom";
 import { MethodCommon } from "../../../common/MethodCommon";
@@ -22,15 +22,21 @@ const Header = () => {
         MethodCommon.clearCookie(TOKEN_NAME)
         MethodCommon.clearLocalStorage(INFO_USER)
         history.push("/login")
-    //     axios.post("http://127.0.0.1:8000/api/auth/logout", data_request).then((response)=>{
-    //         console.log("response:",response)
-    //    })
+        //     axios.post("http://127.0.0.1:8000/api/auth/logout", data_request).then((response)=>{
+        //         console.log("response:",response)
+        //    })
     }
-    //show modal add
+  
+    /**
+     * show modal add
+     */
     const showModal = () => {
         setIsModalVisible(true);
     };
-    //cancel modal add
+   
+    /**
+     * cancel modal add
+     */
     const handleCancel = () => {
         setIsModalVisible(false);
     };

@@ -9,8 +9,12 @@ const EditUser = ({ isModalVisible, handleCancel, form, setIsModalVisible,dataEd
     useEffect(() => {
         dispatch(getUserAction());
     }, [dispatch])
-
-    const handleSubmit = async (test) => {
+    
+    
+     /**
+     * handle submit data
+     */
+    const handleSubmit = async () => {
         let id = dataEdit.id
         try {
             await form.validateFields();

@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import { UserAddOutlined } from "@ant-design/icons";
-import { Button, Table, Switch, message as Message ,Modal} from "antd";
+import { Button, Table, message as Message ,Modal} from "antd";
 import Addtestlist from "../../containers/AddTestList";
 import { useForm } from "antd/lib/form/Form";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,24 +28,40 @@ function TestList({}) {
     const [isModalVisibleEdit, setIsModalVisibleEdit] = useState(false);
     const [dataEdit,setDataEdit]=useState({})
 
-    //handle show modal Add
+  
+    /**
+     * handle show modal Add
+    */
     const showModal = () => {
         setIsModalVisible(true);
     };
-    //handle cancel modal Add
+  
+    /**
+     * handle cancel modal Add
+    */
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-    //handle show modal Edit
+   
+    /**
+     * handle show modal Edit
+    */
     const showModalEdit = (record) => {
         setIsModalVisibleEdit(true);
         setDataEdit(record)
     };
-    //handle cancel modal Edit
+   
+    /**
+     * handle cancel modal Edit
+    */
     const handleCancelEdit = () => {
         setIsModalVisibleEdit(false);
     };
     
+    /**
+     * handle delete data
+     * @param {*} id
+    */
     const handleDeleteData=(id)=>{
         confirm({
             content:"Bạn muốn xóa",
@@ -115,7 +131,11 @@ function TestList({}) {
         },
     ];
 
-    //handle change when change pagination
+
+    /**
+     * handle change when change pagination
+     * @param {*} currentPageData
+    */
     function onChange(currentPageData){
         setCurrentPage(currentPageData.current)
     }

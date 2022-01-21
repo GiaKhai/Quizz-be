@@ -22,23 +22,34 @@ const Modaleditquestion = ({
     const [statusMultiple ,setStatusMultiple] =useState(info_question.isMultiple)
     const [arrAnswerOption ,setArrAnswerOption] =useState(info_question.answer_choices)
     const [dataSubmit,setDataSubmit]=useState({...info_question})
-     //handle submit data
-     function handleOK(){
+   
+    /**
+     * handle submit data
+    */
+    function handleOK(){
         handleSubmit(dataSubmit)
     }
-    //close form and reset fields
+
+    /**
+     *  handle cancel Modal
+    */
     function handleCancelModal(){
         form.resetFields();
         dispatch(getInfoQuestion(init_info_question))
         handleCancel();
     }
+    /**
+     *  handle Change Content of Question
+    */
     function handleChangeContentQuestion(e){ 
         let new_info={...info_question}
         new_info.content_question=e.target.value
         dispatch(getInfoQuestion(new_info))
     }
 
-    //update value of form when change
+    /**
+     *  update value of form when change
+    */
     const onValuesChange = (fieldName) => { 
         var input_data ={...dataSubmit}
         if(fieldName.content_question !== undefined )
@@ -77,7 +88,9 @@ const Modaleditquestion = ({
         setDataSubmit(info_question)
     },[info_question]);
 
-    //handle change answer option
+    /**
+     *  handle change answer option
+    */
     const handleChangeAnswerOption =(value)=>{
         var input_data ={...dataSubmit}
         input_data.answer_choices=value

@@ -7,7 +7,11 @@ const Resultpopup = ({}) => {
     const dispatch = useDispatch();
     const resultTest = useSelector((state) => state.resultTestReducers.resultTest);
     const [isModalVisible, setIsModalVisible] = useState(resultTest.isVisibleModal);
- 
+    
+    
+    /**
+     * handle Cancel
+     */
     const handleCancel = () => {
          let object = {
             correct: 0, 

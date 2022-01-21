@@ -1,16 +1,16 @@
-import React  , { useEffect }from 'react';
-
+import React from 'react';
 import ModalAddTestList from '../js/components/TestList/ModalTestList';
 import { message as Message } from "antd";
 import { postTestListAction } from "../actions/testList.action";
 import { getListAction } from "../actions/testList.action";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
     
 const Addtestlist = ({isModalVisible, handleCancel, form, setIsModalVisible}) => {
     const dispatch = useDispatch();
-
-    //handle submit data
-    const handleSubmit = async (test) => {
+    /**
+     * handle submit data
+     */
+    const handleSubmit = async () => {
         try {
             await form.validateFields();
             let { title } =

@@ -3,6 +3,9 @@ import { userURL } from "../constants/backend_url";
 import { userConstants } from "../constants/user.constants";
 import { message as Message } from "antd";
 
+/**
+ * get user successs
+ */
 const getUserSuccess = (data) => {
     return {
         type: userConstants.GET_USER_SUCCESS,
@@ -10,12 +13,18 @@ const getUserSuccess = (data) => {
     };
 };
 
+/**
+ * get user fail
+ */
 const getUserFail = () => {
     return {
         type: userConstants.GET_USER_FAIL,
     };
 };
 
+/**
+ * get list user
+ */
 export const getUserAction = () => {
     return async (dispatch) => {
         try {
@@ -29,6 +38,11 @@ export const getUserAction = () => {
     };
 };
 
+/**
+ * Create User
+ * @param {*} body 
+ * @returns 
+ */
 export const postUserAction = async (body) => {
     try {
         const result = await axios.post(userURL, body);
@@ -48,11 +62,8 @@ export const postUserAction = async (body) => {
  * @returns 
  */
 export const updateUserAction = async (body,id) => {
-    console.log("body:",body)
-    console.log("id:",id)
     try {
         const result = await axios.put(`${userURL}/${id}`, body);
-        console.log("result:",result)
         if (result.status === 200) {
             Message.success("Edit success");
             return { success: true };

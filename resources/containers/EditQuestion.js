@@ -9,6 +9,9 @@ import { Service  } from '../js/page/QuestionList/Services/Services';
 const Editquestion = ({isModalVisible, handleCancel, setIsModalVisible,pagination}) => {
     const [form] = Form.useForm();
     const dispatch = useDispatch();
+     /**
+     * handle submit data
+     */
     const handleSubmit = async (data) => {
         try {
             const { success } = await updateQuestionToServer(data);

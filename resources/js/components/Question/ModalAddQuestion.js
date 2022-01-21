@@ -1,5 +1,5 @@
 import React,{ useState}  from 'react';
-import { Form, Input, Row, Col, Modal, Select, DatePicker,Button} from "antd";
+import { Form, Input, Row, Col, Modal} from "antd";
 import Tableanswerchoice from './TableAnswerChoice';
 import Selectcorrectanswer from './SelectCorrectAnswer';
 import { getInfoQuestion } from "../../../actions/question.action";
@@ -18,24 +18,37 @@ const Modaladdquestion = ({
     const info_question = useSelector((state) => state.inFoQuestionReducer.info_question)
     const [statusMultiple ,setStatusMultiple] =useState(info_question.isMultiple)
     const [dataSubmit,setDataSubmit]=useState({...info_question})
-    //handle change content of question
+   
+    /**
+     * handle change content of question
+     * @param {*} e
+     */
     function handleChangeContentQuestion(e){ 
         let new_info={...info_question}
         new_info.content_question=e.target.value
         dispatch(getInfoQuestion(new_info))
     }
 
-    //handle submit data
+     /**
+     * handle submit data
+     */
     function handleOK(){
         handleSubmit(dataSubmit)
     }
-    //handle close modal
+  
+    /**
+     * handle close modal
+     */
     function handleCancelModal(){
         form.resetFields();
         dispatch(getInfoQuestion(init_info_question))
         handleCancel();
     }
-    //update value of form when change
+   
+    /**
+     * update value of form when change
+     * @param {*} fieldName
+     */
     const onValuesChange = (fieldName) => { 
         var input_data ={...dataSubmit}
         if(fieldName.content_question !== undefined )
@@ -61,6 +74,10 @@ const Modaladdquestion = ({
             setDataSubmit(input_data)
         }
     }
+     /**
+     *  handle change answer option
+     * @param {*} value
+     */
     const handleChangeAnswerOption =(value)=>{
         var input_data ={...dataSubmit}
         input_data.answer_choices=value

@@ -4,11 +4,20 @@ import { Pagination } from 'antd';
 
 const Questionlistpagination = ({handleChangePageSize,handleChangePageCurrent,totalPage,pageSize}) => {
 
-    //handle change page size
+    /**
+     * handle change page size
+     * @param {*} current
+     * @param {*} pageSize
+     */
     function onShowSizeChange(current, pageSize) {
         handleChangePageSize(pageSize)
     }
-     //handle change page current
+  
+    /**
+     * handle change page current
+     * @param {*} current
+     * @param {*} pageSize
+    */
     const onChange = page => {
         handleChangePageCurrent(page)
     };

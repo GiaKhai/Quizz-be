@@ -8,8 +8,10 @@ import EditModalTestList from '../js/components/TestList/EditModalTestList';
 const Edittestlist = ({isModalVisible, handleCancel, form, setIsModalVisible,dataEdit}) => {
     const dispatch = useDispatch();
     
-    // handle submit data
-    const handleSubmit = async (test) => {
+     /**
+     * handle submit data
+     */
+    const handleSubmit = async () => {
         try {
             await form.validateFields();
             let { title } = form.getFieldsValue();

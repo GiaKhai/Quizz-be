@@ -1,6 +1,5 @@
 import React,{ useState,useEffect } from "react";
-import { Form, Input, Row, Col, Modal, Select, DatePicker } from "antd";
-const { Option } = Select;
+import { Form, Input, Row, Col, Modal} from "antd";
 
 const EditModalTestList = ({
     form,
@@ -8,7 +7,6 @@ const EditModalTestList = ({
     handleCancel,
     isModalVisible,
     dataEdit
-    // testList,
 }) => {
     const [dataModalEdit,setModalDataEdit]=useState({})
     useEffect(() => { 

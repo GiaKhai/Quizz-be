@@ -12,31 +12,61 @@ use Illuminate\Support\Facades\Log;
 
 class Test extends Controller
 {
+    /**
+     * get list plan 
+     * @returns 
+    */
     public function getPlanList() 
     {
         $list  = TestPlan::all();
         return response()->json($list, 200);
     }
+
+    /**
+     * get list plan have public status 
+     * @returns 
+    */
     public function  getPlanListPublist() 
     {
         $plan = new TestPlan();
         $list = $plan->getPlanPublic();    
         return response()->json($list, 200);
     }
-   
+    
+    /**
+     * get test list
+     * @returns 
+    */
     public function getTestList() 
     {  
         $list = TestList::all();
         return response()->json($list, 200);
     }
+    /**
+     * create a test list
+     * @param {*} $request
+     * @returns 
+    */
     public function postTestList(Request $request) 
     {   
         return TestList::create($request->all());
     }
+    /**
+     * delete a test item
+     * @param {*} $id
+     * @returns 
+    */
     public function deleteTestItem($id) 
     {   
         return TestList::destroy($id);
     }
+
+    /**
+     * update a test item
+     * @param {*} $id
+     * @param {*} $request
+     * @returns 
+    */
     public function updateTestItem(Request $request,$id) 
     {   
         $test = TestList::find($id);
@@ -46,19 +76,35 @@ class Test extends Controller
         return response()->json($list, 200);
     }
     
-    
+    /**
+     * create a plan
+     * @param {*} $request
+     * @returns 
+    */
     public function postTestPlan(Request $request) 
     {
         return TestPlan::create($request->all());
     }
-
-     public function updateTestPlan(Request $request,$id) 
+    
+    /**
+     * update a status of plan
+     * @param {*} $request
+     * @param {*} $id
+     * @returns 
+    */
+    public function updateTestPlan(Request $request,$id) 
     {
         $plan = TestPlan::find($id);
         $plan->status = $request->status;
         $plan->save();
     }
     
+    /**
+     * update a plan
+     * @param {*} $request
+     * @param {*} $id
+     * @returns 
+    */
     public function updateInfoTestPlanExeptStatus(Request $request,$id) 
     {
         $plan = TestPlan::find($id);
@@ -72,11 +118,20 @@ class Test extends Controller
         return response()->json($list, 200);
     }
     
-
+    /**
+     *delete a plan
+     * @param {*} $id
+     * @returns 
+    */
     public function destroy($id)
     {
         return TestPlan::destroy($id);
     }
+    /**
+     * check status of a plan
+     * @param {*} $id
+     * @returns 
+    */
     public function checkPlan(Request $request)
     {
         $plan = TestPlan::find($request->planTest_id);
@@ -91,7 +146,12 @@ class Test extends Controller
             ]);
         }
     }
-
+    
+    /**
+     * check result after user do a test
+     * @param {*} $request
+     * @returns 
+    */
     public function resultTest(Request $request)
     {
         $user_id= $request->id_user;
@@ -139,7 +199,12 @@ class Test extends Controller
             'resultTest'=>$resultTest,
         ]);
     }
-    //pending
+    
+    /**
+     * check User Exist in History By Plan ID
+     * @param {*} $request
+     * @returns 
+    */
     public function checkUserExistHistoryByPlanID(Request $request)
     {
          $user_id= $request->user_id;
@@ -151,12 +216,21 @@ class Test extends Controller
         ]);
     }
     
+    /**
+     * get all plan
+     * @returns 
+    */
     public function getPlanResult() 
     {
         $list = UserResultTest::all();
         return response()->json($list, 200);
     }
-
+    
+    /**
+     *  post Plan Result
+     * @param {*} $request
+     * @returns 
+    */
     public function postPlanResult(Request $request) 
     {
         return UserResultTest::create($request->all());

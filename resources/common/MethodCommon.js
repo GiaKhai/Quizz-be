@@ -8,11 +8,21 @@ export const MethodCommon = {
     clearCookie,
     clearLocalStorage,
 };
-// save cookies
+
+/**
+ * save cookies
+ * @param {*} cname
+ * @param {*} cvalue 
+ */
 function saveCookies(cname, cvalue){
     document.cookie = `${cname}=${cvalue};`;
 }
-//get value cookie
+
+/**
+ * get value cookie
+ * @param {*} cname
+ * @returns 
+ */
 function getCookies(cname){
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
@@ -28,17 +38,31 @@ function getCookies(cname){
     }
     return "";
 }
-//save to local storage
+
+/**
+ * save to local storage
+ * @param {*} name
+ *  @param {*} value
+ */
 function saveLocalStorage(name,value){
     localStorage.setItem(name, JSON.stringify(value));
 }
-//get value from local storage
+
+/**
+ * get value from local storage
+ * @param {*}name_localstorage
+ * @returns 
+ */
 function getLocalStorage(name_localstorage){
   var result = localStorage.getItem(name_localstorage);
   result = JSON.parse(result)
   return result
 }
-//check authenticate in by localStorage
+
+/**
+ * check authenticate in by localStorage
+ * @returns 
+ */
 function check_authenticate(){
     let data_user =getLocalStorage(INFO_USER)
     let result = false
@@ -48,11 +72,19 @@ function check_authenticate(){
     return result 
 }
 
-// remove cookie
+/**
+ * remove cookie
+ * @param {*} cname
+ */
 function clearCookie(cname){
     document.cookie = `${cname}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 }
-// remove local storage
+
+
+/**
+ * remove local storage
+ * @param {*} name
+ */
 function clearLocalStorage(name){
   localStorage.removeItem(name);
 }

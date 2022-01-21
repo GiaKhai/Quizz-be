@@ -3,12 +3,23 @@ import { testPlanURL ,testPlanURLPublic} from "../constants/backend_url";
 import { testPlanConstants } from "../constants/testPlan.contants";
 import { message as Message } from "antd";
 
+/**
+ * Get plan success
+ * @param {*} data
+ * @returns 
+ */
 const getPlanSuccess = (data) => {
     return {
         type: testPlanConstants.GET_PLAN_SUCCESS,
         data,
     };
 };
+
+/**
+ * Get plan have status public
+ * @param {*} data
+ * @returns 
+ */
 const getPlanPublic = (data) => {
     return {
         type: testPlanConstants.GET_PLAN_PUBLIC,
@@ -16,12 +27,19 @@ const getPlanPublic = (data) => {
     };
 };
 
+/**
+ * Get plan fail
+ * @returns 
+ */
 const getPlanFail = () => {
     return {
         type: testPlanConstants.GET_PLAN_FAIL,
     };
 };
 
+/**
+ * Get all plan
+ */
 export const getPlanAction = () => {
     return async (dispatch) => {
         try {
@@ -35,6 +53,11 @@ export const getPlanAction = () => {
     };
 };
 
+/**
+ * Create a plan
+ * @param {*} body 
+ * @returns 
+ */
 export const postPlanAction = async (body) => {
     if(body.number_question_pass>body.number_question)
     {
@@ -52,6 +75,11 @@ export const postPlanAction = async (body) => {
     }
 };
 
+/**
+ * Update Plan status
+ * @param {*} body
+ * @param {*} id
+ */
 export const updateStatusAction = async (body, id) => {
     try {
         const response = await axios.post(`${testPlanURL}/${id}`, body);
@@ -63,6 +91,12 @@ export const updateStatusAction = async (body, id) => {
     }
 };
 
+/**
+ * Update a plan
+ * @param {*} body 
+ * @param {*} id
+ * @returns 
+ */
 export const updateTestPlan = async (body, id) => {
     if(body.number_question_pass>body.number_question)
     {
@@ -80,6 +114,10 @@ export const updateTestPlan = async (body, id) => {
         return { success: false };
     }
 };
+
+/**
+ * Get plan have status public
+ */
 export const getPlanActionPublic = () => {
     return async (dispatch) => {
         try {

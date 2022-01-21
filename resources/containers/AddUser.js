@@ -7,6 +7,9 @@ import { useDispatch } from "react-redux";
 
 const AddUser = ({ isModalVisible, handleCancel, form, setIsModalVisible }) => {
     const dispatch = useDispatch();
+     /**
+     * handle submit data
+     */
     const handleSubmit = async () => {
         try {
             await form.validateFields();

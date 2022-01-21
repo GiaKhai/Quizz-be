@@ -15,6 +15,11 @@ const CheckBoxButton = ({
     user_choices,
 }) => {
     const [value, setValue] = useState([])
+    
+    /**
+     * handle change
+     * @param {*} value
+    */
     const onChange = value => {
         handle_getChooseOption(value)
         setValue(value)
@@ -30,7 +35,11 @@ const CheckBoxButton = ({
         }
     })
 
-    //show correct icon
+    /**
+     * show correct icon
+     * @param {*} body 
+     * @returns 
+     */
     function checkCorrect(correct)
     {
         if(isSubmit === true){
@@ -42,7 +51,12 @@ const CheckBoxButton = ({
             return ''
         }
     }
-    //show incorrect icon
+  
+    /**
+     * show incorrect icon
+     * @param {*} body 
+     * @returns 
+     */
     function checkFail(correct,value,id_opiton)
     {
         if(isSubmit === true){
